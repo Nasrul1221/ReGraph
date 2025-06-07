@@ -4,12 +4,12 @@ import { FaHome } from "react-icons/fa";
 
 export default function Aside() {
   return (
-    <aside className="bg-white w-64 min-h-screen flex flex-col px-4 py-6 border-r border-gray-200">
+    <aside className="bg-white w-64 h-screen flex flex-col px-4 py-6 border-r border-gray-200">
       <div>
         <h1 className="font-bold text-2xl">Menu</h1>
         <nav className="flex flex-col gap-y-2">
           <div className="bg-primary group hover:bg-white rounded-full p-1 pl-2 transition-colors duration-300 ease-in-out">
-            <NavLink className="text-xl relative">
+            <NavLink to="/" className="text-xl relative">
               <p className="ml-7 text-white group-hover:text-primary transition-colors duration-300 ease-in-out">
                 Home
               </p>
@@ -18,7 +18,7 @@ export default function Aside() {
           </div>
 
           <div className="bg-primary group hover:bg-white rounded-full p-1 pl-2 transition-colors duration-300 ease-in-out">
-            <NavLink className="text-xl relative">
+            <NavLink to="/create-chart" className="text-xl relative">
               <p className="ml-7 text-white group-hover:text-primary transition-colors duration-300 ease-in-out">
                 Create
               </p>
