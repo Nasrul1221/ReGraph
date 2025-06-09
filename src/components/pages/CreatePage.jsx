@@ -1,9 +1,34 @@
 import Chart from "react-apexcharts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Button from "../Button";
+import Form from "../Form";
 
 export default function CreatePage() {
   const [fileName, setFileName] = useState("");
-  const [data, setData] = useState(null);
+  const [rawData, setRawData] = useState(null);
+  const [chartData, setChartData] = useState(null);
+  const [labels, setLabels] = useState([]);
+  const [dataCount, setDataCount] = useState(0);
+
+  const generateChart = () => {
+    if (rawData && labels) {
+      const updatedData = rawData.series.map((item, index) => ({
+        ...item,
+        name: labels[index] || item.name,
+      }));
+
+      setChartData({
+        ...rawData,
+        series: updatedData,
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (rawData && rawData.series && Array.isArray(rawData.series)) {
+      setDataCount(rawData.series.length);
+    }
+  }, [rawData]);
 
   const handleFile = (e) => {
     setFileName(e.target.files[0]?.name);
@@ -16,11 +41,14 @@ export default function CreatePage() {
     reader.onload = (event) => {
       try {
         const json = JSON.parse(event.target.result);
-        setData(json);
-        console.log(json);
+        if (!json?.options) throw new Error("'options' is required!");
+
+        setRawData(json);
       } catch (err) {
         alert("Error while reading JSON: " + err.message);
       }
+
+      e.target.value = null;
     };
 
     reader.readAsText(file);
@@ -28,31 +56,22 @@ export default function CreatePage() {
 
   return (
     <div className="flex flex-1 justify-between p-10 ">
-      <div>
-        <label
-          htmlFor="fileUpload"
-          className="cursor-pointer px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-        >
-          Вибрати файл
-        </label>
-
-        <input
-          id="fileUpload"
-          type="file"
-          className="hidden"
-          onChange={handleFile}
-        />
-
-        <span className="text-sm text-gray-700">{fileName}</span>
-      </div>
+      <Form
+        handleFile={handleFile}
+        fileName={fileName}
+        setLabels={setLabels}
+        dataCount={dataCount}
+        rawData={rawData}
+      />
 
       <div>
-        {data && (
+        <Button fun={generateChart} label={"Create"} />
+        {chartData && (
           <Chart
-            options={data.options}
-            series={data.series}
-            height={data.height}
-            width={data.width}
+            options={chartData.options}
+            series={chartData.series}
+            height={chartData.height}
+            width={chartData.width}
           />
         )}
       </div>
