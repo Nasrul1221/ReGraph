@@ -7,8 +7,9 @@ export default function CreatePage() {
   const [fileName, setFileName] = useState("");
   const [rawData, setRawData] = useState(null);
   const [chartData, setChartData] = useState(null);
-  const [labels, setLabels] = useState([]);
+  const [labels, setLabels] = useState(null);
   const [dataCount, setDataCount] = useState(0);
+  const [lines, setLines] = useState([]);
 
   const generateChart = () => {
     try {
@@ -35,11 +36,12 @@ export default function CreatePage() {
   useEffect(() => {
     if (rawData && rawData.series && Array.isArray(rawData.series)) {
       setDataCount(rawData.series.length);
+      setLabels(new Array(rawData.series.length).fill(undefined));
+      setLines([]);
     }
   }, [rawData]);
 
   const handleFile = (e) => {
-    console.log(labels);
     setFileName(e.target.files[0]?.name);
     const file = e.target.files[0];
 
@@ -74,6 +76,10 @@ export default function CreatePage() {
         rawData={rawData}
         generateChart={generateChart}
         setDataCount={setDataCount}
+        setChartData={setChartData}
+        setRawData={setRawData}
+        lines={lines}
+        setLines={setLines}
       />
 
       <div>

@@ -10,21 +10,30 @@ function Form({
   rawData,
   generateChart,
   setDataCount,
+  setChartData,
+  setRawData,
+  lines,
+  setLines,
 }) {
-  const [lines, setLines] = useState([]);
   const [count, setCount] = useState(0);
 
-  useEffect(() => setCount(dataCount), [dataCount]);
+  useEffect(() => {
+    setCount(dataCount);
+  }, [dataCount]);
 
   const handleApply = (index) => {
     const value = lines[index];
     if (value.trim() === "") return;
 
-    setLabels((prev) => [...prev, value]);
+    setLabels((prev) => {
+      const updated = [...prev];
+      updated[index] = value;
+      return updated;
+    });
     setDataCount((prev) => prev - 1);
 
     const updated = [...lines];
-    updated.splice(index, 1);
+    updated[index] = "";
     setLines(updated);
   };
 
@@ -47,6 +56,15 @@ function Form({
       alert(err.message);
     }
   };
+
+  const reset = () => {
+    setLabels(null);
+    setChartData(null);
+    setRawData(null);
+    setLines([]);
+    setDataCount(0);
+  };
+
   return (
     <div className="border rounded-xl shadow-lg p-5 w-[300px] box-border flex flex-col gap-y-4">
       <Button fun={generateChart} label={"Create"} size={"xl"} />
@@ -101,6 +119,7 @@ function Form({
           ))}
         </div>
       </div>
+      <Button fun={() => reset()} label={"Reset"} color={"red-500"} />
     </div>
   );
 }
