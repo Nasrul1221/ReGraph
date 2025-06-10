@@ -1,12 +1,42 @@
-# React + Vite
+# ReGraph
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📦 Features
 
-Currently, two official plugins are available:
+- Upload data
+- You can label chart's lines
+- Create your own chart
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Technologies
 
-## Expanding the ESLint configuration
+- Vite
+- React
+- Tailwind
+- ApexCharts
+- react-icons
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📁 Format for input data
+
+```json
+{
+  "options": {
+    "chart": {
+      "id": "basic-bar"
+    },
+    "xaxis": {
+      "categories": ["Jan", "Feb", "Mar", "Apr"]
+    }
+  },
+  "series": [
+    {
+      "data": [10, 20, 30, 40]
+    },
+    {
+      "data": [15, 25, 35, 45]
+    }
+  ],
+  "height": 400,
+  "width": 600
+}
+```
+
+The structure will be symplified
