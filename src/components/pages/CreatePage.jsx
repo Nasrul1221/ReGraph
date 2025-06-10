@@ -11,16 +11,24 @@ export default function CreatePage() {
   const [dataCount, setDataCount] = useState(0);
 
   const generateChart = () => {
-    if (rawData && labels) {
-      const updatedData = rawData.series.map((item, index) => ({
-        ...item,
-        name: labels[index] || item.name,
-      }));
+    try {
+      if (rawData && labels.length > 0) {
+        const updatedData = rawData.series.map((item, index) => ({
+          ...item,
+          name: labels[index] || item.name,
+        }));
 
-      setChartData({
-        ...rawData,
-        series: updatedData,
-      });
+        setChartData({
+          ...rawData,
+          series: updatedData,
+        });
+      } else if (!rawData) {
+        throw new Error("Upload data!");
+      } else if (!labels.length) {
+        throw new Error("Name labels!");
+      }
+    } catch (err) {
+      alert("Error: " + err.message);
     }
   };
 
@@ -31,6 +39,7 @@ export default function CreatePage() {
   }, [rawData]);
 
   const handleFile = (e) => {
+    console.log(labels);
     setFileName(e.target.files[0]?.name);
     const file = e.target.files[0];
 
@@ -42,6 +51,7 @@ export default function CreatePage() {
       try {
         const json = JSON.parse(event.target.result);
         if (!json?.options) throw new Error("'options' is required!");
+        if (!json?.series) throw new Error("'series' is required!");
 
         setRawData(json);
       } catch (err) {
@@ -62,10 +72,11 @@ export default function CreatePage() {
         setLabels={setLabels}
         dataCount={dataCount}
         rawData={rawData}
+        generateChart={generateChart}
+        setDataCount={setDataCount}
       />
 
       <div>
-        <Button fun={generateChart} label={"Create"} />
         {chartData && (
           <Chart
             options={chartData.options}
