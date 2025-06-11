@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
 import { IoIosAddCircle } from "react-icons/io";
 import { Button } from "./ui/button";
-import { Link } from "lucide-react";
+import { useFormContext } from "./Context";
 
-function Form({
-  handleFile,
-  fileName,
-  setLabels,
-  dataCount,
-  rawData,
-  generateChart,
-  setDataCount,
-  setChartData,
-  setRawData,
-  lines,
-  setLines,
-}) {
+function Form() {
   const [count, setCount] = useState(0);
+  const {
+    handleFile,
+    fileName,
+    setLabels,
+    dataCount,
+    rawData,
+    generateChart,
+    setDataCount,
+    setChartData,
+    setRawData,
+    lines,
+    setLines,
+  } = useFormContext();
 
   useEffect(() => {
     setCount(dataCount);
@@ -68,11 +69,11 @@ function Form({
 
   return (
     <div className="border rounded-xl shadow-lg p-5 w-[300px] box-border flex flex-col gap-y-4">
-      <Button>Create</Button>
+      <Button onClick={generateChart}>Create</Button>
       <div>
         <label
           htmlFor="fileUpload"
-          className="cursor-pointer px-4 py-2 bg-primary text-white rounded hover:bg-white hover:text-grayText transition border border-primary mr-2"
+          className="cursor-pointer px-4 py-2 bg-primary text-white rounded hover:bg-white hover:text-primary transition border border-primary mr-2"
         >
           Upload file
         </label>
@@ -113,10 +114,10 @@ function Form({
                 placeholder="write here"
                 className="w-[140px] outline-none border-b border-gray-300"
               />
-              <Button>Apply</Button>
+              <Button onClick={() => handleApply(index)}>Apply</Button>
             </div>
           ))}
-          <Button variant={"destructive"} className="bg-my_primary-DEFAULTs">
+          <Button variant={"destructive"} onClick={reset}>
             Reset
           </Button>
         </div>

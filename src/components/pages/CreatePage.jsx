@@ -1,6 +1,7 @@
 import Chart from "react-apexcharts";
 import { useEffect, useState } from "react";
 import Form from "../Form";
+import { FormContext } from "../Context";
 
 export default function CreatePage() {
   const [fileName, setFileName] = useState("");
@@ -54,6 +55,7 @@ export default function CreatePage() {
         if (!json?.options) throw new Error("'options' is required!");
         if (!json?.series) throw new Error("'series' is required!");
 
+        console.log(json);
         setRawData(json);
       } catch (err) {
         alert("Error while reading JSON: " + err.message);
@@ -67,19 +69,23 @@ export default function CreatePage() {
 
   return (
     <div className="flex flex-1 justify-between p-10 ">
-      <Form
-        handleFile={handleFile}
-        fileName={fileName}
-        setLabels={setLabels}
-        dataCount={dataCount}
-        rawData={rawData}
-        generateChart={generateChart}
-        setDataCount={setDataCount}
-        setChartData={setChartData}
-        setRawData={setRawData}
-        lines={lines}
-        setLines={setLines}
-      />
+      <FormContext.Provider
+        value={{
+          handleFile,
+          fileName,
+          setLabels,
+          dataCount,
+          rawData,
+          generateChart,
+          setDataCount,
+          setChartData,
+          setRawData,
+          lines,
+          setLines,
+        }}
+      >
+        <Form />
+      </FormContext.Provider>
 
       <div>
         {chartData && (
@@ -88,6 +94,7 @@ export default function CreatePage() {
             series={chartData.series}
             height={chartData.height}
             width={chartData.width}
+            type={`${chartData.options.chart.type || "line"}`}
           />
         )}
       </div>

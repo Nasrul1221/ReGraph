@@ -4,6 +4,7 @@ import Home from "./components/pages/Home";
 import Charts from "./components/pages/Charts";
 import Profile from "./components/pages/Profile";
 import CreatePage from "./components/pages/CreatePage";
+import Form from "./components/Form";
 
 export default function App() {
   return (
