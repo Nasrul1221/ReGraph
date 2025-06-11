@@ -1,6 +1,5 @@
 import Chart from "react-apexcharts";
 import { useEffect, useState } from "react";
-import Button from "../Button";
 import Form from "../Form";
 
 export default function CreatePage() {

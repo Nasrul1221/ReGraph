@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { IoIosAddCircle } from "react-icons/io";
-import Button from "./Button";
+import { Button } from "./ui/button";
+import { Link } from "lucide-react";
 
 function Form({
   handleFile,
@@ -67,7 +68,7 @@ function Form({
 
   return (
     <div className="border rounded-xl shadow-lg p-5 w-[300px] box-border flex flex-col gap-y-4">
-      <Button fun={generateChart} label={"Create"} size={"xl"} />
+      <Button>Create</Button>
       <div>
         <label
           htmlFor="fileUpload"
@@ -88,12 +89,10 @@ function Form({
 
       <div>
         <div className="flex gap-3 items-center">
-          <h1 className="order-2 text-secondary font-bold">
-            Add label: {count}
-          </h1>
+          <h1 className="order-2 text-black font-bold">Add label: {count}</h1>
           <div className="bg-white rounded-full group hover:bg-primary transition-all duration-300">
             <IoIosAddCircle
-              className="text-3xl order-1 text-secondary group-hover:text-white transition-all duration-300 cursor-pointer"
+              className="text-3xl order-1 text-black group-hover:text-white transition-all duration-300 cursor-pointer"
               onClick={addLine}
             />
           </div>
@@ -114,12 +113,14 @@ function Form({
                 placeholder="write here"
                 className="w-[140px] outline-none border-b border-gray-300"
               />
-              <Button fun={() => handleApply(index)} label={"Apply"} />
+              <Button>Apply</Button>
             </div>
           ))}
+          <Button variant={"destructive"} className="bg-my_primary-DEFAULTs">
+            Reset
+          </Button>
         </div>
       </div>
-      <Button fun={() => reset()} label={"Reset"} color={"red-500"} />
     </div>
   );
 }
