@@ -10,18 +10,25 @@ export default function CreatePage() {
   const [labels, setLabels] = useState(null);
   const [dataCount, setDataCount] = useState(0);
   const [lines, setLines] = useState([]);
+  const [typeChart, setTypeChart] = useState("");
 
   const generateChart = () => {
     try {
-      if (rawData && labels.length > 0) {
-        const updatedData = rawData.series.map((item, index) => ({
+      if (rawData && typeChart && labels.length > 0) {
+        const updatedSeries = rawData.series.map((item, index) => ({
           ...item,
           name: labels[index] || item.name,
         }));
 
         setChartData({
           ...rawData,
-          series: updatedData,
+          options: {
+            ...rawData.options,
+            chart: {
+              type: typeChart,
+            },
+          },
+          series: updatedSeries,
         });
       } else if (!rawData) {
         throw new Error("Upload data!");
@@ -82,6 +89,8 @@ export default function CreatePage() {
           setRawData,
           lines,
           setLines,
+          setTypeChart,
+          chartData,
         }}
       >
         <Form />

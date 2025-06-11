@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { IoIosAddCircle } from "react-icons/io";
 import { Button } from "./ui/button";
 import { useFormContext } from "./Context";
+import DropDownMenu from "./Select";
+import { chartsTypes } from "../charts/chartsTypes";
 
 function Form() {
   const [count, setCount] = useState(0);
@@ -98,6 +100,7 @@ function Form() {
             />
           </div>
         </div>
+        <DropDownMenu object={chartsTypes} />
         <div className="flex flex-col gap-y-3 mt-5">
           {lines.map((item, index) => (
             <div key={index} className="flex items-center gap-3">
