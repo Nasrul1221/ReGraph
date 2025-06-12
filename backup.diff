@@ -1,0 +1,46 @@
+diff --git a/src/components/Form.jsx b/src/components/Form.jsx
+index 662240a..97ccb1d 100644
+--- a/src/components/Form.jsx
++++ b/src/components/Form.jsx
+@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
+ import { useFormContext } from "./Context";
+ import DropDownMenu from "./Select";
+ import { chartsTypes } from "../charts/chartsTypes";
++import UploadFile from "./UploadFile";
+ 
+ function Form() {
+   const [count, setCount] = useState(0);
+@@ -34,7 +35,7 @@ function Form() {
+       updated[index] = value;
+       return updated;
+     });
+-    setDataCount((prev) => prev - 1);
++    if (dataCount > 0) setDataCount((prev) => prev - 1);
+ 
+     const updated = [...lines];
+     updated[index] = "";
+@@ -72,23 +73,7 @@ function Form() {
+   return (
+     <div className="border rounded-xl shadow-lg p-5 w-[300px] box-border flex flex-col gap-y-4">
+       <Button onClick={generateChart}>Create</Button>
+-      <div>
+-        <label
+-          htmlFor="fileUpload"
+-          className="cursor-pointer px-4 py-2 bg-primary text-white rounded hover:bg-white hover:text-primary transition border border-primary mr-2"
+-        >
+-          Upload file
+-        </label>
+-
+-        <input
+-          id="fileUpload"
+-          type="file"
+-          className="hidden"
+-          onChange={handleFile}
+-        />
+-
+-        <span className="text-sm text-gray-700">{fileName}</span>
+-      </div>
++      <UploadFile fun={handleFile} fileName={fileName} label={"Upload file"} />
+ 
+       <div>
+         <div className="flex gap-3 items-center">

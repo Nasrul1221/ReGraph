@@ -8,11 +8,8 @@ import {
   SelectLabel,
 } from "./ui/select";
 import { wordToUpperCase } from "../lib/utils";
-import { useContext } from "react";
-import { FormContext } from "./Context";
 
-export default function DropDownMenu({ object }) {
-  const { setTypeChart } = useContext(FormContext);
+export default function MySelect({ object, setTypeChart }) {
   const handleChange = (value) => {
     setTypeChart(value);
   };

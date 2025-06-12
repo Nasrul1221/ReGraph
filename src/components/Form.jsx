@@ -1,29 +1,86 @@
 import { useEffect, useState } from "react";
-import { IoIosAddCircle } from "react-icons/io";
 import { Button } from "./ui/button";
-import { useFormContext } from "./Context";
-import DropDownMenu from "./Select";
+import Select from "./Select";
 import { chartsTypes } from "../charts/chartsTypes";
+import UploadFile from "./UploadFile";
+import { rawDataAtom, chartDataAtom } from "../charts/dataCharts";
+import { useAtom } from "jotai";
+import AddLabels from "./AddLabels";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
 
 function Form() {
   const [count, setCount] = useState(0);
-  const {
-    handleFile,
-    fileName,
-    setLabels,
-    dataCount,
-    rawData,
-    generateChart,
-    setDataCount,
-    setChartData,
-    setRawData,
-    lines,
-    setLines,
-  } = useFormContext();
+  const [typeChart, setTypeChart] = useState("");
+  const [labels, setLabels] = useState(null);
+  const [dataCount, setDataCount] = useState(0);
+  const [lines, setLines] = useState([]);
+  const [fileName, setFileName] = useState("");
+  const [rawData, setRawData] = useAtom(rawDataAtom);
+  const [, setChartData] = useAtom(chartDataAtom);
+
+  const handleFile = (e) => {
+    setFileName(e.target.files[0]?.name);
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      try {
+        const json = JSON.parse(event.target.result);
+        if (!json?.options) throw new Error("'options' is required!");
+        if (!json?.series) throw new Error("'series' is required!");
+
+        setRawData(json);
+      } catch (err) {
+        alert("Error while reading JSON: " + err.message);
+      }
+
+      e.target.value = null;
+    };
+
+    reader.readAsText(file);
+  };
+
+  const generateChart = () => {
+    try {
+      if (rawData && typeChart && labels.length > 0) {
+        const updatedSeries = rawData.series.map((item, index) => ({
+          ...item,
+          name: labels[index] || item.name,
+        }));
+
+        setChartData({
+          ...rawData,
+          options: {
+            ...rawData.options,
+            chart: {
+              type: typeChart,
+            },
+          },
+          series: updatedSeries,
+        });
+      } else if (!rawData) {
+        throw new Error("Upload data!");
+      } else if (!labels.length) {
+        throw new Error("Name labels!");
+      }
+    } catch (err) {
+      alert("Error: " + err.message);
+    }
+  };
 
   useEffect(() => {
-    setCount(dataCount);
-  }, [dataCount]);
+    if (rawData && rawData.series && Array.isArray(rawData.series)) {
+      setDataCount(rawData.series.length);
+      setLabels(new Array(rawData.series.length).fill(undefined));
+      setLines([]);
+    }
+  }, [rawData]);
+
+  useEffect(() => setCount(dataCount), [dataCount]);
 
   const handleApply = (index) => {
     const value = lines[index];
@@ -34,7 +91,8 @@ function Form() {
       updated[index] = value;
       return updated;
     });
-    setDataCount((prev) => prev - 1);
+
+    if (dataCount > 0) setDataCount((prev) => prev - 1);
 
     const updated = [...lines];
     updated[index] = "";
@@ -72,45 +130,21 @@ function Form() {
   return (
     <div className="border rounded-xl shadow-lg p-5 w-[300px] box-border flex flex-col gap-y-4">
       <Button onClick={generateChart}>Create</Button>
-      <div>
-        <label
-          htmlFor="fileUpload"
-          className="cursor-pointer px-4 py-2 bg-primary text-white rounded hover:bg-white hover:text-primary transition border border-primary mr-2"
-        >
-          Upload file
-        </label>
-
-        <input
-          id="fileUpload"
-          type="file"
-          className="hidden"
-          onChange={handleFile}
-        />
-
-        <span className="text-sm text-gray-700">{fileName}</span>
-      </div>
+      <UploadFile fun={handleFile} fileName={fileName} label={"Upload file"} />
 
       <div>
-        <div className="flex gap-3 items-center">
-          <h1 className="order-2 text-black font-bold">Add label: {count}</h1>
-          <div className="bg-white rounded-full group hover:bg-primary transition-all duration-300">
-            <IoIosAddCircle
-              className="text-3xl order-1 text-black group-hover:text-white transition-all duration-300 cursor-pointer"
-              onClick={addLine}
-            />
-          </div>
-        </div>
-        <DropDownMenu object={chartsTypes} />
+        <AddLabels fun={addLine} count={count} />
+        <Select object={chartsTypes} setTypeChart={setTypeChart} />
         <div className="flex flex-col gap-y-3 mt-5">
           {lines.map((item, index) => (
             <div key={index} className="flex items-center gap-3">
-              <label
+              <Label
                 htmlFor={`text-${index}`}
-                className="text-grayText text-[18px]"
+                className="text-black text-[18px]"
               >
-                Text
-              </label>
-              <input
+                Label
+              </Label>
+              <Input
                 id={`text-${index}`}
                 onChange={(e) => handleInputChange(index, e.target.value)}
                 value={lines[index]}
