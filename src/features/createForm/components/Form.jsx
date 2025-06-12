@@ -32,8 +32,17 @@ function Form() {
             name: labels[index] || item.name,
           }));
 
+          const updatedXaxis = [...userData.options.xaxis.categories];
+
           setChartData({
             ...rawData,
+            options: {
+              ...rawData.options,
+              xaxis: {
+                ...rawData.options.xaxis,
+                categories: updatedXaxis,
+              },
+            },
             series: updatedSeries,
           });
 
@@ -50,12 +59,12 @@ function Form() {
   };
 
   useEffect(() => {
-    if (rawData && rawData.series && Array.isArray(rawData.series)) {
-      setDataCount(rawData.series.length);
-      setLabels(new Array(rawData.series.length).fill(undefined));
+    if (userData && userData.series && Array.isArray(userData.series)) {
+      setDataCount(userData.series.length);
+      setLabels(new Array(userData.series.length).fill(undefined));
       setLines([]);
     }
-  }, [rawData]);
+  }, [userData]);
 
   useEffect(() => setCount(dataCount), [dataCount]);
   useEffect(() => {
@@ -87,7 +96,6 @@ function Form() {
 
   const addLine = () => {
     try {
-      console.log(lines.length, dataCount);
       if (lines.length < dataCount) {
         setLines((prev) => [...prev, ""]);
         setCount((prev) => prev - 1);
