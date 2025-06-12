@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { Button } from "../../../components/ui/button";
-import Select from "../../../components/Select";
+import Select from "./Select";
 import { chartsTypes } from "../../../charts/chartsTypes";
 import UploadFile from "./UploadFile";
-import { rawDataAtom, chartDataAtom } from "../../../store/dataChartsJotai";
+import { rawDataAtom, chartDataAtom } from "../store/dataChartsJotai";
 import { useAtom } from "jotai";
-import AddLabels from "../../../components/AddLabels";
+import AddLabels from "./AddLabels";
 import { Input } from "../../../components/ui/input";
 import { Label } from "../../../components/ui/label";
+import useGetData from "../hooks/useGetData";
 
 function Form() {
   const [count, setCount] = useState(0);
@@ -15,34 +16,9 @@ function Form() {
   const [labels, setLabels] = useState(null);
   const [dataCount, setDataCount] = useState(0);
   const [lines, setLines] = useState([]);
-  const [fileName, setFileName] = useState("");
+  const { handleFile, fileName } = useGetData();
   const [rawData, setRawData] = useAtom(rawDataAtom);
   const [, setChartData] = useAtom(chartDataAtom);
-
-  const handleFile = (e) => {
-    setFileName(e.target.files[0]?.name);
-    const file = e.target.files[0];
-
-    if (!file) return;
-
-    const reader = new FileReader();
-
-    reader.onload = (event) => {
-      try {
-        const json = JSON.parse(event.target.result);
-        if (!json?.options) throw new Error("'options' is required!");
-        if (!json?.series) throw new Error("'series' is required!");
-
-        setRawData(json);
-      } catch (err) {
-        alert("Error while reading JSON: " + err.message);
-      }
-
-      e.target.value = null;
-    };
-
-    reader.readAsText(file);
-  };
 
   const generateChart = () => {
     try {

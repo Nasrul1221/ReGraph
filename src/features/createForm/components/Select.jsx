@@ -6,12 +6,12 @@ import {
   SelectValue,
   SelectGroup,
   SelectLabel,
-} from "./ui/select";
-import { wordToUpperCase } from "../lib/utils";
+} from "../../../components/ui/select";
+import { wordToUpperCase } from "../../../lib/utils";
 
-export default function MySelect({ object, setTypeChart }) {
+export default function MySelect({ object, setValue }) {
   const handleChange = (value) => {
-    setTypeChart(value);
+    setValue(value);
   };
 
   return (
