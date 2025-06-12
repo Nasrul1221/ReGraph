@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { Button } from "./ui/button";
-import Select from "./Select";
-import { chartsTypes } from "../charts/chartsTypes";
+import { Button } from "../../../components/ui/button";
+import Select from "../../../components/Select";
+import { chartsTypes } from "../../../charts/chartsTypes";
 import UploadFile from "./UploadFile";
-import { rawDataAtom, chartDataAtom } from "../charts/dataCharts";
+import { rawDataAtom, chartDataAtom } from "../../../store/dataChartsJotai";
 import { useAtom } from "jotai";
-import AddLabels from "./AddLabels";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import AddLabels from "../../../components/AddLabels";
+import { Input } from "../../../components/ui/input";
+import { Label } from "../../../components/ui/label";
 
 function Form() {
   const [count, setCount] = useState(0);

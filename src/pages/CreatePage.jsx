@@ -1,6 +1,6 @@
 import Chart from "react-apexcharts";
-import Form from "../Form";
-import { chartDataAtom } from "../../charts/dataCharts";
+import Form from "../features/createForm/components/Form";
+import { chartDataAtom } from "../store/dataChartsJotai";
 import { useAtom } from "jotai";
 
 export default function CreatePage() {
