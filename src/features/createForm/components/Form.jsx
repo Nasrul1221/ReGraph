@@ -9,6 +9,8 @@ import AddLabels from "./AddLabels";
 import { Input } from "../../../components/ui/input";
 import { Label } from "../../../components/ui/label";
 import useGetData from "../hooks/useGetData";
+import { line } from "../../../charts/templates/line";
+import { userDataJotai } from "../store/dataChartsJotai";
 
 function Form() {
   const [count, setCount] = useState(0);
@@ -16,32 +18,31 @@ function Form() {
   const [labels, setLabels] = useState(null);
   const [dataCount, setDataCount] = useState(0);
   const [lines, setLines] = useState([]);
-  const { handleFile, fileName } = useGetData();
+  const { handleFile, fileName } = useGetData(typeChart);
   const [rawData, setRawData] = useAtom(rawDataAtom);
   const [, setChartData] = useAtom(chartDataAtom);
+  const [userData] = useAtom(userDataJotai);
 
   const generateChart = () => {
     try {
-      if (rawData && typeChart && labels.length > 0) {
-        const updatedSeries = rawData.series.map((item, index) => ({
-          ...item,
-          name: labels[index] || item.name,
-        }));
+      if (rawData) {
+        if (userData) {
+          const updatedSeries = userData.series.map((item, index) => ({
+            ...item,
+            name: labels[index] || item.name,
+          }));
 
-        setChartData({
-          ...rawData,
-          options: {
-            ...rawData.options,
-            chart: {
-              type: typeChart,
-            },
-          },
-          series: updatedSeries,
-        });
-      } else if (!rawData) {
-        throw new Error("Upload data!");
-      } else if (!labels.length) {
-        throw new Error("Name labels!");
+          setChartData({
+            ...rawData,
+            series: updatedSeries,
+          });
+
+          return;
+        }
+
+        setChartData(rawData);
+      } else if (!typeChart) {
+        throw new Error("Choose at least a type!");
       }
     } catch (err) {
       alert("Error: " + err.message);
@@ -57,6 +58,9 @@ function Form() {
   }, [rawData]);
 
   useEffect(() => setCount(dataCount), [dataCount]);
+  useEffect(() => {
+    if (typeChart === "line") setRawData(line);
+  }, [typeChart]);
 
   const handleApply = (index) => {
     const value = lines[index];
@@ -110,7 +114,7 @@ function Form() {
 
       <div>
         <AddLabels fun={addLine} count={count} />
-        <Select object={chartsTypes} setTypeChart={setTypeChart} />
+        <Select object={chartsTypes} setValue={setTypeChart} />
         <div className="flex flex-col gap-y-3 mt-5">
           {lines.map((item, index) => (
             <div key={index} className="flex items-center gap-3">
