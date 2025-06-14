@@ -1,23 +1,34 @@
+// React && State
 import { useEffect, useState } from "react";
-import { Button } from "../../../components/ui/button";
-import Select from "./Select";
-import { chartsTypes } from "../../../charts/chartsTypes";
-import UploadFile from "./UploadFile";
-import { rawDataAtom, chartDataAtom } from "../store/dataChartsJotai";
 import { useAtom } from "jotai";
+
+// Components
+import Select from "./Select";
 import AddLabels from "./AddLabels";
+import UploadFile from "./UploadFile";
+
+// Shadcn UI components
+import { Button } from "../../../components/ui/button";
 import { Input } from "../../../components/ui/input";
 import { Label } from "../../../components/ui/label";
+
+// Jotai stores
+import { userDataJotai } from "../store/dataCharts.jotai";
+import { typeChartAtom } from "../../../store/typeCharts.jotai";
+import { rawDataAtom, chartDataAtom } from "../store/dataCharts.jotai";
+
+// Charts
+import * as chartTemplates from "../../../charts/templates";
+
+import { chartsTypes } from "../../../charts/chartsTypes";
 import useGetData from "../hooks/useGetData";
-import { line } from "../../../charts/templates/line";
-import { userDataJotai } from "../store/dataChartsJotai";
 
 function Form() {
   const [count, setCount] = useState(0);
-  const [typeChart, setTypeChart] = useState("");
   const [labels, setLabels] = useState(null);
   const [dataCount, setDataCount] = useState(0);
   const [lines, setLines] = useState([]);
+  const [typeChart, setTypeChart] = useAtom(typeChartAtom);
   const { handleFile, fileName } = useGetData(typeChart);
   const [rawData, setRawData] = useAtom(rawDataAtom);
   const [, setChartData] = useAtom(chartDataAtom);
@@ -68,7 +79,9 @@ function Form() {
 
   useEffect(() => setCount(dataCount), [dataCount]);
   useEffect(() => {
-    if (typeChart === "line") setRawData(line);
+    if (typeChart === "line") setRawData(chartTemplates["line"]);
+    else if (typeChart === "area") setRawData(chartTemplates["area"]);
+    else if (typeChart === "bar") setRawData(chartTemplates["bar"]);
   }, [typeChart]);
 
   const handleApply = (index) => {
@@ -113,6 +126,7 @@ function Form() {
     setRawData(null);
     setLines([]);
     setDataCount(0);
+    setTypeChart("");
   };
 
   return (

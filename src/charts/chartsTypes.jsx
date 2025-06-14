@@ -8,4 +8,7 @@ export const chartsTypes = [
   {
     type: "bar",
   },
+  {
+    type: "column",
+  },
 ];
