@@ -1,4 +1,4 @@
-import { area } from "./area";
-import { bar } from "./bar";
-import { column } from "./column";
-import { line } from "./line";
+export { area } from "./area";
+export { bar } from "./bar";
+export { column } from "./column";
+export { line } from "./line";

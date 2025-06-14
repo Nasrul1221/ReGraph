@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useAtom } from "jotai";
-import { userDataJotai } from "../store/dataCharts.jotai";
+import { userDataJotai } from "../../../stores/dataCharts.jotai";
 
 function useGetData() {
   const [fileName, setFileName] = useState("");

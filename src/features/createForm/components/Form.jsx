@@ -13,9 +13,9 @@ import { Input } from "../../../components/ui/input";
 import { Label } from "../../../components/ui/label";
 
 // Jotai stores
-import { userDataJotai } from "../store/dataCharts.jotai";
-import { typeChartAtom } from "../../../store/typeCharts.jotai";
-import { rawDataAtom, chartDataAtom } from "../store/dataCharts.jotai";
+import { userDataJotai } from "../../../stores/dataCharts.jotai";
+import { typeChartAtom } from "../../../stores/typeCharts.jotai";
+import { rawDataAtom, chartDataAtom } from "../../../stores/dataCharts.jotai";
 
 // Charts
 import * as chartTemplates from "../../../charts/templates";
@@ -37,6 +37,7 @@ function Form() {
   const generateChart = () => {
     try {
       if (rawData) {
+        console.log(rawData);
         if (userData) {
           const updatedSeries = userData.series.map((item, index) => ({
             ...item,

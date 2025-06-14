@@ -1,9 +1,9 @@
 import Chart from "react-apexcharts";
 import Form from "../features/createForm/components/Form";
-import { chartDataAtom } from "../features/createForm/store/dataCharts.jotai";
+import { chartDataAtom } from "../stores/dataCharts.jotai";
 import { useAtom } from "jotai";
 import { useEffect } from "react";
-import { typeChartAtom } from "../store/typeCharts.jotai";
+import { typeChartAtom } from "../stores/typeCharts.jotai";
 import SubForm from "../features/subForm/components/SubForm";
 
 export default function CreatePage() {
