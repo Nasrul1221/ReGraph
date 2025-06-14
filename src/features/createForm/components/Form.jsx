@@ -37,7 +37,6 @@ function Form() {
   const generateChart = () => {
     try {
       if (rawData) {
-        console.log(rawData);
         if (userData) {
           const updatedSeries = userData.series.map((item, index) => ({
             ...item,

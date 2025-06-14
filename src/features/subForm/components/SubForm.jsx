@@ -1,22 +1,23 @@
 // React && State
 import { useAtom } from "jotai";
-import { useState } from "react";
+
+// Custom hooks
+import { useChangeOptions } from "../hooks/useChangeOptions";
 
 // Jotai stores
 import { typeChartAtom } from "../../../stores/typeCharts.jotai";
-import { chartDataAtom, rawDataAtom } from "../../../stores/dataCharts.jotai";
+import { options } from "../../../stores/chartOptions.jotai";
+import { rawDataAtom } from "../../../stores/dataCharts.jotai";
 
 // Shadcn UI
 import { Checkbox } from "../../../components/ui/checkbox";
 import { Label } from "../../../components/ui/label";
 
 export default function SubForm() {
-  const [checkOptions, setCheckOptions] = useState({
-    stroke: false,
-    markers: false,
-  });
+  const [chartOptions, setChartOptions] = useAtom(options);
   const [typeChart] = useAtom(typeChartAtom);
-  const [, setRawData] = useAtom(rawDataAtom);
+
+  useChangeOptions();
 
   return (
     <div className="w-[300px] h-[200px] shadow-lg border rounded-xl p-5">
@@ -25,9 +26,9 @@ export default function SubForm() {
           <div className="flex items-center gap-2">
             <Checkbox
               id="stroke"
-              checked={checkOptions.stroke}
+              checked={chartOptions.stroke}
               onCheckedChange={(newState) =>
-                setCheckOptions((prev) => ({ ...prev, stroke: newState }))
+                setChartOptions((prev) => ({ ...prev, stroke: newState }))
               }
             />
             <Label htmlFor="stroke">Stroke</Label>
@@ -36,9 +37,9 @@ export default function SubForm() {
           <div className="flex items-center gap-2">
             <Checkbox
               id="markers"
-              checked={checkOptions.markers}
+              checked={chartOptions.markers}
               onCheckedChange={(newState) =>
-                setCheckOptions((prev) => ({ ...prev, markers: newState }))
+                setChartOptions((prev) => ({ ...prev, markers: newState }))
               }
             />
             <Label htmlFor="markers">Markers</Label>

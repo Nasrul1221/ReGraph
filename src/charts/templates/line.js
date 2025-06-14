@@ -10,11 +10,6 @@ export const line = {
     xaxis: {
       categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
     },
-    stroke: {
-      curve: 'smooth', // або 'straight', 'stepline'
-      width: 2,
-      dashArray: 0
-    }
   },
   series: [
     {
