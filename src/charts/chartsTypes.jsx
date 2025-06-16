@@ -1,14 +1,14 @@
 export const chartsTypes = [
   {
-    type: "line",
+    type: 'line',
   },
   {
-    type: "area",
+    type: 'area',
   },
   {
-    type: "bar",
+    type: 'bar',
   },
   {
-    type: "column",
+    type: 'column',
   },
 ];

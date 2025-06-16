@@ -1,10 +1,10 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SharedLayout from "./layout/SharedLayout";
-import Home from "./pages/Home";
-import Charts from "./pages/Charts";
-import Profile from "./pages/Profile";
-import CreatePage from "./pages/CreatePage";
-import Form from "./features/createForm/components/Form";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import SharedLayout from './layout/SharedLayout';
+import Home from './pages/Home';
+import Charts from './pages/Charts';
+import Profile from './pages/Profile';
+import CreatePage from './pages/CreatePage';
+import Form from './features/createForm/components/Form';
 
 export default function App() {
   return (

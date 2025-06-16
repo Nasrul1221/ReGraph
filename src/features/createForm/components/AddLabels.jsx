@@ -1,4 +1,4 @@
-import { IoIosAddCircle } from "react-icons/io";
+import { IoIosAddCircle } from 'react-icons/io';
 
 export default function AddLabels({ fun, count }) {
   return (

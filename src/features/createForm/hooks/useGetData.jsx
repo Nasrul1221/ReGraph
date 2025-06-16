@@ -1,9 +1,9 @@
-import { useCallback, useState } from "react";
-import { useAtom } from "jotai";
-import { userDataJotai } from "../../../stores/dataCharts.jotai";
+import { useCallback, useState } from 'react';
+import { useAtom } from 'jotai';
+import { userDataJotai } from '../../../stores/dataCharts.jotai';
 
 function useGetData() {
-  const [fileName, setFileName] = useState("");
+  const [fileName, setFileName] = useState('');
   const [, setUserData] = useAtom(userDataJotai);
 
   const handleFile = useCallback((e) => {
@@ -22,7 +22,7 @@ function useGetData() {
 
         setUserData(json);
       } catch (err) {
-        alert("Error while reading JSON: " + err.message);
+        alert('Error while reading JSON: ' + err.message);
       }
 
       e.target.value = null;

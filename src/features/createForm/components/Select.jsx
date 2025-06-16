@@ -6,8 +6,8 @@ import {
   SelectValue,
   SelectGroup,
   SelectLabel,
-} from "../../../components/ui/select";
-import { wordToUpperCase } from "../../../lib/utils";
+} from '../../../components/ui/select';
+import { wordToUpperCase } from '../../../lib/utils';
 
 export default function MySelect({ object, setValue }) {
   const handleChange = (value) => {

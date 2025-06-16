@@ -1,27 +1,27 @@
 // React && State
-import { useEffect, useState } from "react";
-import { useAtom } from "jotai";
+import { useEffect, useState } from 'react';
+import { useAtom } from 'jotai';
 
 // Components
-import Select from "./Select";
-import AddLabels from "./AddLabels";
-import UploadFile from "./UploadFile";
+import Select from './Select';
+import AddLabels from './AddLabels';
+import UploadFile from './UploadFile';
 
 // Shadcn UI components
-import { Button } from "../../../components/ui/button";
-import { Input } from "../../../components/ui/input";
-import { Label } from "../../../components/ui/label";
+import { Button } from '../../../components/ui/button';
+import { Input } from '../../../components/ui/input';
+import { Label } from '../../../components/ui/label';
 
 // Jotai stores
-import { userDataJotai } from "../../../stores/dataCharts.jotai";
-import { typeChartAtom } from "../../../stores/typeCharts.jotai";
-import { rawDataAtom, chartDataAtom } from "../../../stores/dataCharts.jotai";
+import { userDataJotai } from '../../../stores/dataCharts.jotai';
+import { typeChartAtom } from '../../../stores/typeCharts.jotai';
+import { rawDataAtom, chartDataAtom } from '../../../stores/dataCharts.jotai';
 
 // Charts
-import * as chartTemplates from "../../../charts/templates";
+import * as chartTemplates from '../../../charts/templates';
 
-import { chartsTypes } from "../../../charts/chartsTypes";
-import useGetData from "../hooks/useGetData";
+import { chartsTypes } from '../../../charts/chartsTypes';
+import useGetData from '../hooks/useGetData';
 
 function Form() {
   const [count, setCount] = useState(0);
@@ -62,10 +62,10 @@ function Form() {
 
         setChartData(rawData);
       } else if (!typeChart) {
-        throw new Error("Choose at least a type!");
+        throw new Error('Choose at least a type!');
       }
     } catch (err) {
-      alert("Error: " + err.message);
+      alert('Error: ' + err.message);
     }
   };
 
@@ -79,14 +79,14 @@ function Form() {
 
   useEffect(() => setCount(dataCount), [dataCount]);
   useEffect(() => {
-    if (typeChart === "line") setRawData(chartTemplates["line"]);
-    else if (typeChart === "area") setRawData(chartTemplates["area"]);
-    else if (typeChart === "bar") setRawData(chartTemplates["bar"]);
+    if (typeChart === 'line') setRawData(chartTemplates['line']);
+    else if (typeChart === 'area') setRawData(chartTemplates['area']);
+    else if (typeChart === 'bar') setRawData(chartTemplates['bar']);
   }, [typeChart]);
 
   const handleApply = (index) => {
     const value = lines[index];
-    if (value.trim() === "") return;
+    if (value.trim() === '') return;
 
     setLabels((prev) => {
       const updated = [...prev];
@@ -97,7 +97,7 @@ function Form() {
     if (dataCount > 0) setDataCount((prev) => prev - 1);
 
     const updated = [...lines];
-    updated[index] = "";
+    updated[index] = '';
     setLines(updated);
   };
 
@@ -110,11 +110,10 @@ function Form() {
   const addLine = () => {
     try {
       if (lines.length < dataCount) {
-        setLines((prev) => [...prev, ""]);
+        setLines((prev) => [...prev, '']);
         setCount((prev) => prev - 1);
-      } else if (!rawData) throw new Error("Upload data");
-      else if (lines.length >= dataCount)
-        throw new Error("The max number of names is reached");
+      } else if (!rawData) throw new Error('Upload data');
+      else if (lines.length >= dataCount) throw new Error('The max number of names is reached');
     } catch (err) {
       alert(err.message);
     }
@@ -126,13 +125,13 @@ function Form() {
     setRawData(null);
     setLines([]);
     setDataCount(0);
-    setTypeChart("");
+    setTypeChart('');
   };
 
   return (
     <div className="border rounded-xl shadow-lg p-5 w-[300px] box-border flex flex-col gap-y-4">
       <Button onClick={generateChart}>Create</Button>
-      <UploadFile fun={handleFile} fileName={fileName} label={"Upload file"} />
+      <UploadFile fun={handleFile} fileName={fileName} label={'Upload file'} />
 
       <div>
         <AddLabels fun={addLine} count={count} />
@@ -140,10 +139,7 @@ function Form() {
         <div className="flex flex-col gap-y-3 mt-5">
           {lines.map((item, index) => (
             <div key={index} className="flex items-center gap-3">
-              <Label
-                htmlFor={`text-${index}`}
-                className="text-black text-[18px]"
-              >
+              <Label htmlFor={`text-${index}`} className="text-black text-[18px]">
                 Label
               </Label>
               <Input
@@ -156,7 +152,7 @@ function Form() {
               <Button onClick={() => handleApply(index)}>Apply</Button>
             </div>
           ))}
-          <Button variant={"destructive"} onClick={reset}>
+          <Button variant={'destructive'} onClick={reset}>
             Reset
           </Button>
         </div>
