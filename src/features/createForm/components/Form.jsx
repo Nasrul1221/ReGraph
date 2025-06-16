@@ -2,6 +2,10 @@
 import { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
 
+// Hooks
+import useGetData from '../hooks/useGetData';
+import { useChooseTemplate } from '../hooks/useChooseTemplate';
+
 // Components
 import Select from './Select';
 import AddLabels from './AddLabels';
@@ -18,10 +22,7 @@ import { typeChartAtom } from '../../../stores/typeCharts.jotai';
 import { rawDataAtom, chartDataAtom } from '../../../stores/dataCharts.jotai';
 
 // Charts
-import * as chartTemplates from '../../../charts/templates';
-
 import { chartsTypes } from '../../../charts/chartsTypes';
-import useGetData from '../hooks/useGetData';
 
 function Form() {
   const [count, setCount] = useState(0);
@@ -69,6 +70,8 @@ function Form() {
     }
   };
 
+  // When user data is uploaded, set dataCount with length,
+  // labels fill with undfined, lines as a an empty arr
   useEffect(() => {
     if (userData && userData.series && Array.isArray(userData.series)) {
       setDataCount(userData.series.length);
@@ -77,12 +80,13 @@ function Form() {
     }
   }, [userData]);
 
+  // When data count is changed, set count
   useEffect(() => setCount(dataCount), [dataCount]);
+
+  // When a user chose a type, set a template
+  const fun = useChooseTemplate(typeChart);
   useEffect(() => {
-    if (typeChart === 'line') setRawData(chartTemplates['line']);
-    else if (typeChart === 'area') setRawData(chartTemplates['area']);
-    else if (typeChart === 'bar') setRawData(chartTemplates['bar']);
-    else if (typeChart === 'column') setRawData(chartTemplates['column']);
+    fun();
   }, [typeChart]);
 
   const handleApply = (index) => {
