@@ -7,7 +7,6 @@ import { useChangeOptions } from '../hooks/useChangeOptions';
 // Jotai stores
 import { typeChartAtom } from '../../../stores/typeCharts.jotai';
 import { options } from '../../../stores/chartOptions.jotai';
-import { rawDataAtom } from '../../../stores/dataCharts.jotai';
 
 // Shadcn UI
 import { Checkbox } from '../../../components/ui/checkbox';

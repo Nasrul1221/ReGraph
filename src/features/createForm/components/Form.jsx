@@ -82,6 +82,7 @@ function Form() {
     if (typeChart === 'line') setRawData(chartTemplates['line']);
     else if (typeChart === 'area') setRawData(chartTemplates['area']);
     else if (typeChart === 'bar') setRawData(chartTemplates['bar']);
+    else if (typeChart === 'column') setRawData(chartTemplates['column']);
   }, [typeChart]);
 
   const handleApply = (index) => {
