@@ -1,6 +1,6 @@
-import { NavLink } from "react-router-dom";
-import { IoIosAddCircle } from "react-icons/io";
-import { FaHome } from "react-icons/fa";
+import { NavLink } from 'react-router-dom';
+import { IoIosAddCircle } from 'react-icons/io';
+import { FaHome } from 'react-icons/fa';
 
 export default function Aside() {
   return (
