@@ -33,7 +33,7 @@ export default function CreatePage() {
       <Form />
 
       <div className="flex flex-col">
-        {(typeChart === 'line' && <SubForm />) || (typeChart === 'area' && <SubForm />)}
+        {typeChart && <SubForm />}
         {chartData && (
           <div>
             <Chart

@@ -5,6 +5,7 @@ import { useAtom } from 'jotai';
 // Hooks
 import useGetData from '../hooks/useGetData';
 import { useChooseTemplate } from '../hooks/useChooseTemplate';
+import { useReset } from '../hooks/useReset';
 
 // Components
 import Select from './Select';
@@ -34,6 +35,14 @@ function Form() {
   const [rawData, setRawData] = useAtom(rawDataAtom);
   const [, setChartData] = useAtom(chartDataAtom);
   const [userData] = useAtom(userDataJotai);
+  const reset = useReset({
+    setLabels,
+    setChartData,
+    setRawData,
+    setLines,
+    setDataCount,
+    setTypeChart,
+  });
 
   const generateChart = () => {
     try {
@@ -124,15 +133,6 @@ function Form() {
     }
   };
 
-  const reset = () => {
-    setLabels(null);
-    setChartData(null);
-    setRawData(null);
-    setLines([]);
-    setDataCount(0);
-    setTypeChart('');
-  };
-
   return (
     <div className="border rounded-xl shadow-lg p-5 w-[300px] box-border flex flex-col gap-y-4">
       <Button onClick={generateChart}>Create</Button>
@@ -140,7 +140,7 @@ function Form() {
 
       <div>
         <AddLabels fun={addLine} count={count} />
-        <Select object={chartsTypes} setValue={setTypeChart} />
+        <Select object={chartsTypes} setValue={(typeChart, setTypeChart)} />
         <div className="flex flex-col gap-y-3 mt-5">
           {lines.map((item, index) => (
             <div key={index} className="flex items-center gap-3">
