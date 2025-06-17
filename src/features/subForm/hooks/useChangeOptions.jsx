@@ -8,13 +8,41 @@ export function useChangeOptions() {
   const [, setRawData] = useAtom(rawDataAtom);
   const [chartOptions] = useAtom(options);
   useEffect(() => {
+    if (chartOptions.toolbar === true) {
+      setRawData((prev) => ({
+        ...prev,
+        options: {
+          ...prev.options,
+          chart: {
+            ...prev.options.chart,
+            toolbar: {
+              show: true,
+            },
+          },
+        },
+      }));
+    } else {
+      setRawData((prev) => ({
+        ...prev,
+        options: {
+          ...prev.options,
+          chart: {
+            ...prev.options.chart,
+            toolbar: {
+              show: false,
+            },
+          },
+        },
+      }));
+    }
+
     if (chartOptions.stroke === true) {
       setRawData((prev) => ({
         ...prev,
         options: {
           ...prev.options,
           stroke: {
-            curve: 'smooth',
+            curve: 'stepline',
           },
         },
       }));
@@ -31,5 +59,5 @@ export function useChangeOptions() {
         },
       }));
     }
-  }, [chartOptions.stroke, chartOptions.markers]);
+  }, [chartOptions.stroke, chartOptions.markers, chartOptions.toolbar]);
 }

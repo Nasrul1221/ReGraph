@@ -2,6 +2,11 @@
 import { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
 
+// Hooks
+import useGetData from '../hooks/useGetData';
+import { useChooseTemplate } from '../hooks/useChooseTemplate';
+import { useReset } from '../hooks/useReset';
+
 // Components
 import Select from './Select';
 import AddLabels from './AddLabels';
@@ -18,10 +23,7 @@ import { typeChartAtom } from '../../../stores/typeCharts.jotai';
 import { rawDataAtom, chartDataAtom } from '../../../stores/dataCharts.jotai';
 
 // Charts
-import * as chartTemplates from '../../../charts/templates';
-
 import { chartsTypes } from '../../../charts/chartsTypes';
-import useGetData from '../hooks/useGetData';
 
 function Form() {
   const [count, setCount] = useState(0);
@@ -33,6 +35,14 @@ function Form() {
   const [rawData, setRawData] = useAtom(rawDataAtom);
   const [, setChartData] = useAtom(chartDataAtom);
   const [userData] = useAtom(userDataJotai);
+  const reset = useReset({
+    setLabels,
+    setChartData,
+    setRawData,
+    setLines,
+    setDataCount,
+    setTypeChart,
+  });
 
   const generateChart = () => {
     try {
@@ -69,6 +79,8 @@ function Form() {
     }
   };
 
+  // When user data is uploaded, set dataCount with length,
+  // labels fill with undfined, lines as a an empty arr
   useEffect(() => {
     if (userData && userData.series && Array.isArray(userData.series)) {
       setDataCount(userData.series.length);
@@ -77,11 +89,13 @@ function Form() {
     }
   }, [userData]);
 
+  // When data count is changed, set count
   useEffect(() => setCount(dataCount), [dataCount]);
+
+  // When a user chose a type, set a template
+  const fun = useChooseTemplate(typeChart);
   useEffect(() => {
-    if (typeChart === 'line') setRawData(chartTemplates['line']);
-    else if (typeChart === 'area') setRawData(chartTemplates['area']);
-    else if (typeChart === 'bar') setRawData(chartTemplates['bar']);
+    fun();
   }, [typeChart]);
 
   const handleApply = (index) => {
@@ -119,15 +133,6 @@ function Form() {
     }
   };
 
-  const reset = () => {
-    setLabels(null);
-    setChartData(null);
-    setRawData(null);
-    setLines([]);
-    setDataCount(0);
-    setTypeChart('');
-  };
-
   return (
     <div className="border rounded-xl shadow-lg p-5 w-[300px] box-border flex flex-col gap-y-4">
       <Button onClick={generateChart}>Create</Button>
@@ -135,7 +140,7 @@ function Form() {
 
       <div>
         <AddLabels fun={addLine} count={count} />
-        <Select object={chartsTypes} setValue={setTypeChart} />
+        <Select object={chartsTypes} setValue={(typeChart, setTypeChart)} />
         <div className="flex flex-col gap-y-3 mt-5">
           {lines.map((item, index) => (
             <div key={index} className="flex items-center gap-3">

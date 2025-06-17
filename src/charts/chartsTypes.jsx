@@ -11,4 +11,19 @@ export const chartsTypes = [
   {
     type: 'column',
   },
+  {
+    type: 'pie',
+  },
+  {
+    type: 'donut',
+  },
+  {
+    type: 'radar',
+  },
+  {
+    type: 'heatmap',
+  },
+  {
+    type: 'radialBar',
+  },
 ];
