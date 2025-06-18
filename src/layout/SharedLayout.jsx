@@ -1,13 +1,15 @@
 import { Outlet } from 'react-router-dom';
 import Aside from '../layout/Aside';
+import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 
 export default function SharedLayout() {
   return (
-    <div className="flex">
+    <SidebarProvider className="flex">
       <Aside />
-      <section className="flex flex-1">
+      <main className="flex flex-1">
+        <SidebarTrigger />
         <Outlet />
-      </section>
-    </div>
+      </main>
+    </SidebarProvider>
   );
 }
