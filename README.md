@@ -1,4 +1,5 @@
 # ReGraph
+The versatile website, create your own charts, check game statistics and so on
 
 ## 📦 Features
 
