@@ -140,7 +140,7 @@ function Form() {
 
       <div>
         <AddLabels fun={addLine} count={count} />
-        <Select object={chartsTypes} setValue={(typeChart, setTypeChart)} />
+        <Select object={chartsTypes} setValue={setTypeChart} />
         <div className="flex flex-col gap-y-3 mt-5">
           {lines.map((item, index) => (
             <div key={index} className="flex items-center gap-3">

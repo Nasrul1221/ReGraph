@@ -1,30 +1,22 @@
 import { NavLink } from 'react-router-dom';
 import { IoIosAddCircle } from 'react-icons/io';
 import { FaHome } from 'react-icons/fa';
+import NavigateButtons from '@/components/NavigateButtons';
 
 export default function Aside() {
-  return (
-    <aside className="bg-white w-64 h-screen flex flex-col px-4 py-6 border-r border-gray-200">
-      <div>
-        <h1 className="font-bold text-2xl">Menu</h1>
-        <nav className="flex flex-col gap-y-2">
-          <div className="bg-primary group hover:bg-white rounded-full p-1 pl-2 transition-colors duration-300 ease-in-out">
-            <NavLink to="/" className="text-xl relative">
-              <p className="ml-7 text-white group-hover:text-primary transition-colors duration-300 ease-in-out">
-                Home
-              </p>
-              <FaHome className="absolute group-hover:text-primary text-white text-2xl top-1/2 left-0 transform -translate-y-1/2 transition-colors duration-300 ease-in-out" />
-            </NavLink>
-          </div>
+  const buttons = [
+    { id: 'home', label: 'Home', Icon: FaHome, path: '/' },
+    { id: 'create', label: 'Create chart', Icon: IoIosAddCircle, path: '/create-chart' },
+  ];
 
-          <div className="bg-primary group hover:bg-white rounded-full p-1 pl-2 transition-colors duration-300 ease-in-out">
-            <NavLink to="/create-chart" className="text-xl relative">
-              <p className="ml-7 text-white group-hover:text-primary transition-colors duration-300 ease-in-out">
-                Create
-              </p>
-              <IoIosAddCircle className="absolute group-hover:text-primary text-white text-2xl top-1/2 left-0 transform -translate-y-1/2 transition-colors duration-300 ease-in-out" />
-            </NavLink>
-          </div>
+  return (
+    <aside className="bg-aside w-64 h-screen flex flex-col px-4 py-6">
+      <div>
+        <h1 className="font-bold text-2xl pb-2 mb-5 border-b border-primary-light text-grayText">
+          <NavLink to={'/'}>ReGraph</NavLink>
+        </h1>
+        <nav className="flex flex-col gap-y-2">
+          <NavigateButtons obj={buttons} />
         </nav>
       </div>
     </aside>

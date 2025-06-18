@@ -3,7 +3,7 @@ import { FaChartBar } from 'react-icons/fa';
 
 export default function Header() {
   return (
-    <header className="bg-white shadow-md px-6 py-4 flex justify-between items-center">
+    <header className="bg-header shadow-md px-6 py-4 flex justify-between items-center">
       <NavLink to={'/'} className="text-2xl font-bold text-grayText">
         ReGraph
       </NavLink>

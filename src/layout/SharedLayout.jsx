@@ -1,15 +1,13 @@
 import { Outlet } from 'react-router-dom';
-import Header from '../layout/Header';
 import Aside from '../layout/Aside';
 
 export default function SharedLayout() {
   return (
-    <>
-      <Header />
-      <div className="flex">
-        <Aside />
+    <div className="flex">
+      <Aside />
+      <section className="flex flex-1">
         <Outlet />
-      </div>
-    </>
+      </section>
+    </div>
   );
 }
