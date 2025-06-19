@@ -78,7 +78,9 @@ export default {
 			highlight: {
 				DEFAULT: 'hsl(var(--highlight))',
 				secondary: 'hsl(var(--highlight-secondary))'
-			}
+			},
+			linearL: '#CB3CFF',
+			linearR: '#7F25FB'
   		},
   		animation: {
   			'fade-in': 'fadeIn 1s ease-in-out forwards',

@@ -12,6 +12,9 @@ import {
 } from '@/components/ui/sidebar';
 import { Separator } from '@/components/ui/separator';
 
+//Icons
+import { House, ChartLine } from 'lucide-react';
+
 //React && State
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -34,8 +37,13 @@ export default function Aside() {
     'hover:bg-highlight hover:text-secondary-foreground hover:before:w-[2px]  hover:before:bg-highlight-secondary hover:before:absolute hover:before:left-0 hover:before:h-full hover:before:rounded-tl hover:before:rounded-bl';
 
   const buttons = [
-    { id: 'home', label: 'Home', Icon: FaHome, path: '/' },
-    { id: 'create', label: 'Create chart', Icon: IoIosAddCircle, path: '/create-chart' },
+    { id: 'home', label: 'Home', path: '/', icon: House },
+    {
+      id: 'create',
+      label: 'Create chart',
+      path: '/create-chart',
+      icon: ChartLine,
+    },
   ];
 
   useEffect(() => {
@@ -53,14 +61,19 @@ export default function Aside() {
             <SidebarMenu>
               {buttons.map((item) => (
                 <SidebarMenuItem key={item.id}>
-                  <SidebarMenuButton
-                    asChild
-                    className={`rounded text-secondary-foreground ${active === item.id ? styleClicked : null} ${styleActive} ${styleHover}`}
+                  <NavLink
+                    to={item.path}
+                    className={({ isActive }) =>
+                      `flex items-center gap-1 p-2 rounded text-secondary-foreground text-[1.1em] hover:bg-highlight ${styleActive} ${styleHover} ${isActive ? styleClicked : null}`
+                    }
                   >
-                    <NavLink to={item.path} onClick={() => setActive(item.id)}>
-                      {item.label}
-                    </NavLink>
-                  </SidebarMenuButton>
+                    {({ isActive }) => (
+                      <>
+                        <item.icon className={`${isActive ? 'text-highlight-secondary' : null}`} />
+                        {item.label}
+                      </>
+                    )}
+                  </NavLink>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
@@ -69,15 +82,4 @@ export default function Aside() {
       </SidebarContent>
     </Sidebar>
   );
-
-  // <aside className="w-64 h-screen flex flex-col px-4 py-6 border border-background-border shadow-custom-shadow translate-x-0 duration-300">
-  //     <div>
-  //       <h1 className="font-bold text-2xl pb-2 mb-5 border-b border-primary-light text-grayText">
-  //         <NavLink to={'/'}>ReGraph</NavLink>
-  //       </h1>
-  //       <nav className="flex flex-col gap-y-2">
-  //         <NavigateButtons obj={buttons} />
-  //       </nav>
-  //     </div>
-  //   </aside>
 }
