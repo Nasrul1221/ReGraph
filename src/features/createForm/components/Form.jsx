@@ -11,6 +11,7 @@ import { useReset } from '../hooks/useReset';
 import Select from './Select';
 import AddLabels from './AddLabels';
 import UploadFile from './UploadFile';
+import AnimatedButton from '@/components/AnimatedButton';
 
 // Shadcn UI components
 import { Button } from '../../../components/ui/button';
@@ -24,6 +25,7 @@ import { rawDataAtom, chartDataAtom } from '../../../stores/dataCharts.jotai';
 
 // Charts
 import { chartsTypes } from '../../../charts/chartsTypes';
+import { useGenerateChart } from '../hooks/useGenerateChart';
 
 function Form() {
   const [count, setCount] = useState(0);
@@ -43,41 +45,7 @@ function Form() {
     setDataCount,
     setTypeChart,
   });
-
-  const generateChart = () => {
-    try {
-      if (rawData) {
-        if (userData) {
-          const updatedSeries = userData.series.map((item, index) => ({
-            ...item,
-            name: labels[index] || item.name,
-          }));
-
-          const updatedXaxis = [...userData.options.xaxis.categories];
-
-          setChartData({
-            ...rawData,
-            options: {
-              ...rawData.options,
-              xaxis: {
-                ...rawData.options.xaxis,
-                categories: updatedXaxis,
-              },
-            },
-            series: updatedSeries,
-          });
-
-          return;
-        }
-
-        setChartData(rawData);
-      } else if (!typeChart) {
-        throw new Error('Choose at least a type!');
-      }
-    } catch (err) {
-      alert('Error: ' + err.message);
-    }
-  };
+  const generateChart = useGenerateChart({ rawData, userData, labels, setChartData, typeChart });
 
   // When user data is uploaded, set dataCount with length,
   // labels fill with undfined, lines as a an empty arr
@@ -134,8 +102,10 @@ function Form() {
   };
 
   return (
-    <div className="border rounded-xl shadow-lg p-5 w-[300px] box-border flex flex-col gap-y-4">
-      <Button onClick={generateChart}>Create</Button>
+    <div className="bg-secondary rounded-[10px] p-5 w-[300px] box-border flex flex-col gap-y-4">
+      <AnimatedButton className="bg-gradient-to-r from-linearL to-linearR" onClick={generateChart}>
+        Create
+      </AnimatedButton>
       <UploadFile fun={handleFile} fileName={fileName} label={'Upload file'} />
 
       <div>

@@ -6,7 +6,11 @@ import { Button } from '@/components/ui/button';
 import { Gamepad, ChartLine, MoveRight } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
-const AnimatedButton = motion.create(Button);
+// Components
+import AnimatedButton from '@/components/AnimatedButton';
+
+// Styles
+import { buttonsStyle } from '@/styles/styles';
 
 export default function Home() {
   return (
@@ -25,11 +29,7 @@ export default function Home() {
               {item.label}
             </motion.h3>
             <AnimatedButton
-              variants={buttonsStyle}
-              initial="initial"
-              whileHover="hovered"
-              whileTap="active"
-              className="bg-gradient-to-r from-linearL to-linearR"
+              className="flex p-2 rounded gap-2 bg-gradient-to-r from-linearL to-linearR"
               asChild
             >
               <NavLink to={item.path}>
@@ -114,21 +114,5 @@ const buttonContainer = {
       stiffness: 200,
       damping: 8,
     },
-  },
-};
-
-const buttonsStyle = {
-  initial: {
-    background: 'linear-gradient(to right, #CB3CFF, #7F25FB)',
-  },
-  hovered: {
-    background: 'linear-gradient(to right, #7F25FB, #CB3CFF)',
-    scale: 1.03,
-    transition: {
-      duration: 0.3,
-    },
-  },
-  active: {
-    scale: 1.07,
   },
 };
