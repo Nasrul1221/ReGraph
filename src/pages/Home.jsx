@@ -9,9 +9,6 @@ import { NavLink } from 'react-router-dom';
 // Components
 import AnimatedButton from '@/components/AnimatedButton';
 
-// Styles
-import { buttonsStyle } from '@/styles/styles';
-
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col items-center relative">
@@ -28,10 +25,7 @@ export default function Home() {
               <item.icon className="text-highlight-secondary" />
               {item.label}
             </motion.h3>
-            <AnimatedButton
-              className="flex p-2 rounded gap-2 bg-gradient-to-r from-linearL to-linearR"
-              asChild
-            >
+            <AnimatedButton className="flex p-2 rounded gap-2" variant="linearGradient" asChild>
               <NavLink to={item.path}>
                 {item.buttonLabel}
                 <MoveRight />

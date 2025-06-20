@@ -1,4 +1,4 @@
-export const buttonsStyle = {
+export const linearAnimation = {
   initial: {
     background: 'linear-gradient(to right, #CB3CFF, #7F25FB)',
   },

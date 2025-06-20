@@ -33,7 +33,7 @@ function Form() {
   const [dataCount, setDataCount] = useState(0);
   const [lines, setLines] = useState([]);
   const [typeChart, setTypeChart] = useAtom(typeChartAtom);
-  const { handleFile, fileName } = useGetData(typeChart);
+  const { handleFile } = useGetData();
   const [rawData, setRawData] = useAtom(rawDataAtom);
   const [, setChartData] = useAtom(chartDataAtom);
   const [userData] = useAtom(userDataJotai);
@@ -103,10 +103,10 @@ function Form() {
 
   return (
     <div className="bg-secondary rounded-[10px] p-5 w-[300px] box-border flex flex-col gap-y-4">
-      <AnimatedButton className="bg-gradient-to-r from-linearL to-linearR" onClick={generateChart}>
+      <AnimatedButton variant="linearGradient" onClick={generateChart}>
         Create
       </AnimatedButton>
-      <UploadFile fun={handleFile} fileName={fileName} label={'Upload file'} />
+      <UploadFile fun={handleFile} />
 
       <div>
         <AddLabels fun={addLine} count={count} />
@@ -114,17 +114,14 @@ function Form() {
         <div className="flex flex-col gap-y-3 mt-5">
           {lines.map((item, index) => (
             <div key={index} className="flex items-center gap-3">
-              <Label htmlFor={`text-${index}`} className="text-black text-[18px]">
-                Label
-              </Label>
               <Input
                 id={`text-${index}`}
                 onChange={(e) => handleInputChange(index, e.target.value)}
                 value={lines[index]}
                 placeholder="write here"
-                className="w-[140px] outline-none border-b border-gray-300"
+                className="w-[120px] outline-none border-gray-700 text-secondary-foreground bg-background rounded p-2"
               />
-              <Button onClick={() => handleApply(index)}>Apply</Button>
+              <AnimatedButton onClick={() => handleApply(index)}>Apply</AnimatedButton>
             </div>
           ))}
           <Button variant={'destructive'} onClick={reset}>

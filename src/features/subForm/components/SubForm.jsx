@@ -17,7 +17,7 @@ export default function SubForm() {
   useChangeOptions();
 
   return (
-    <div className="w-[300px] h-[200px] shadow-lg border rounded-xl p-5">
+    <div className="w-[300px] h-[200px] shadow-lg rounded-[10px] p-5 bg-secondary">
       {Form ? <Form /> : null}
     </div>
   );

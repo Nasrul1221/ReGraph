@@ -10,7 +10,6 @@ import {
   SidebarMenuItem,
   SidebarHeader,
 } from '@/components/ui/sidebar';
-import { Separator } from '@/components/ui/separator';
 
 //Icons
 import { House, ChartLine } from 'lucide-react';
@@ -20,8 +19,6 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { NavLink } from 'react-router-dom';
-import { IoIosAddCircle } from 'react-icons/io';
-import { FaHome } from 'react-icons/fa';
 
 export default function Aside() {
   const [active, setActive] = useState('');

@@ -16,14 +16,14 @@ export default function MySelect({ object, setValue }) {
 
   return (
     <Select onValueChange={handleChange}>
-      <SelectTrigger>
+      <SelectTrigger className="border-gray-700 rounded bg-background data-[placeholder]:text-secondary-foreground">
         <SelectValue placeholder="Type" />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="border-none bg-background rounded">
         <SelectGroup>
-          <SelectLabel>Types</SelectLabel>
+          <SelectLabel className="text-secondary-foreground">Types</SelectLabel>
           {object.map((item, index) => (
-            <SelectItem key={index} value={item.type}>
+            <SelectItem key={index} value={item.type} className="text-secondary-foreground">
               {wordToUpperCase(item.type)}
             </SelectItem>
           ))}
