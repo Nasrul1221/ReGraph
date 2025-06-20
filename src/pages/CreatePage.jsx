@@ -1,6 +1,9 @@
 // ApexCharts
 import Chart from 'react-apexcharts';
 
+// Reusable components
+import Card from '@/components/Card';
+
 // Features (Components)
 import Form from '../features/createForm/components/Form';
 import SubForm from '../features/subForm/components/SubForm';
@@ -29,13 +32,13 @@ export default function CreatePage() {
   }, [chartData]);
 
   return (
-    <div className="flex flex-1 justify-between p-10 ">
+    <div className="flex flex-1 gap-3 p-5 ">
       <Form />
 
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-y-3">
         {typeChart && <SubForm />}
         {chartData && (
-          <div>
+          <Card>
             <Chart
               options={chartData.options}
               series={chartData.series}
@@ -44,7 +47,7 @@ export default function CreatePage() {
               type={`${chartData.options.chart.type || 'line'}`}
             />
             <Button onClick={handleClick}>Save</Button>
-          </div>
+          </Card>
         )}
       </div>
     </div>

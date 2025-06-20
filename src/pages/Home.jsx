@@ -1,13 +1,24 @@
+// React && State
 import React from 'react';
+
+// React router
+import { NavLink } from 'react-router-dom';
+
+// ApexChart
 import Chart from 'react-apexcharts';
 import { options, series } from './homePageData/data';
+
+// Framer motion
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+
+// Icons
 import { Gamepad, ChartLine, MoveRight } from 'lucide-react';
-import { NavLink } from 'react-router-dom';
 
 // Components
 import AnimatedButton from '@/components/AnimatedButton';
+
+// Styles
+import { containerAnimation } from '@/styles/styles';
 
 export default function Home() {
   return (
@@ -15,7 +26,7 @@ export default function Home() {
       <div className="flex gap-5">
         {buttons.map((item, index) => (
           <motion.div
-            variants={buttonContainer}
+            variants={containerAnimation}
             initial="hidden"
             animate="visible"
             key={index}
@@ -94,19 +105,3 @@ const buttons = [
     path: 'not-found',
   },
 ];
-
-const buttonContainer = {
-  hidden: {
-    opacity: 0,
-    y: -50,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: 'spring',
-      stiffness: 200,
-      damping: 8,
-    },
-  },
-};

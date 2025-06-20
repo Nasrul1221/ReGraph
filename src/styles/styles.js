@@ -13,3 +13,19 @@ export const linearAnimation = {
     scale: 1.07,
   },
 };
+
+export const containerAnimation = {
+  hidden: {
+    opacity: 0,
+    y: -50,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: 'spring',
+      stiffness: 200,
+      damping: 8,
+    },
+  },
+};
