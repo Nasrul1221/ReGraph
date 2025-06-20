@@ -8,56 +8,39 @@ export function useChangeOptions() {
   const [, setRawData] = useAtom(rawDataAtom);
   const [chartOptions] = useAtom(options);
   useEffect(() => {
-    if (chartOptions.toolbar === true) {
-      setRawData((prev) => ({
-        ...prev,
-        options: {
-          ...prev.options,
-          chart: {
-            ...prev.options.chart,
-            toolbar: {
-              show: true,
-            },
-          },
+    setRawData((prev) => {
+      const updated = { ...prev.options };
+      updated.chart = {
+        ...updated.chart,
+        toolbar: {
+          show: chartOptions.toolbar,
         },
-      }));
-    } else {
-      setRawData((prev) => ({
-        ...prev,
-        options: {
-          ...prev.options,
-          chart: {
-            ...prev.options.chart,
-            toolbar: {
-              show: false,
-            },
-          },
-        },
-      }));
-    }
+      };
 
-    if (chartOptions.stroke === true) {
-      setRawData((prev) => ({
-        ...prev,
-        options: {
-          ...prev.options,
-          stroke: {
-            curve: 'stepline',
-          },
-        },
-      }));
-    }
+      if (chartOptions.stroke) {
+        updated.stroke = {
+          ...updated.stroke,
+          curve: 'stepline',
+        };
+      }
 
-    if (chartOptions.markers === true) {
-      setRawData((prev) => ({
+      if (chartOptions.markers) {
+        updated.markers = {
+          size: 7,
+        };
+      }
+
+      if (chartOptions.width != 5) {
+        updated.stroke = {
+          ...updated.stroke,
+          width: chartOptions.width,
+        };
+      }
+
+      return {
         ...prev,
-        options: {
-          ...prev.options,
-          markers: {
-            size: 7,
-          },
-        },
-      }));
-    }
-  }, [chartOptions.stroke, chartOptions.markers, chartOptions.toolbar]);
+        options: updated,
+      };
+    });
+  }, [chartOptions]);
 }

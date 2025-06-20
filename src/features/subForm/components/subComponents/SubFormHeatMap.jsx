@@ -13,33 +13,7 @@ export default function SubFormHeatMap() {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-2">
-        <Checkbox
-          id="stroke"
-          checked={chartOptions.stroke}
-          onCheckedChange={(newState) =>
-            setChartOptions((prev) => ({
-              ...prev,
-              stroke: newState,
-            }))
-          }
-        />
-        <Label htmlFor="stroke">Stroke</Label>
-      </div>
-
-      <div className="flex items-center gap-2">
-        <Checkbox
-          id="markers"
-          checked={chartOptions.markers}
-          onCheckedChange={(newState) =>
-            setChartOptions((prev) => ({
-              ...prev,
-              markers: newState,
-            }))
-          }
-        />
-        <Label htmlFor="markers">Markers</Label>
-      </div>
+      
     </div>
   );
 }

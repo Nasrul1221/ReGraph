@@ -4,4 +4,5 @@ export const options = atom({
   stroke: false,
   markers: false,
   toolbar: false,
+  width: 5,
 });
