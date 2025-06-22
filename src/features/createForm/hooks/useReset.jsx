@@ -19,12 +19,13 @@ export const useReset = ({
     setDataCount(0);
     setTypeChart('');
 
-    setOptions((prev) => {
-      const updated = Object.entries(prev).map(([key, value]) => [key, false]);
-      const newObj = Object.fromEntries(updated);
-
-      return newObj;
-    });
+    setOptions((prev) => ({
+      ...prev,
+      stroke: 'straight',
+      markers: false,
+      toolbar: false,
+      width: 5,
+    }));
   };
   return fun;
 };

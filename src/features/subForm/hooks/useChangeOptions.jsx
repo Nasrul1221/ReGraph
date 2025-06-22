@@ -20,7 +20,7 @@ export function useChangeOptions() {
       if (chartOptions.stroke) {
         updated.stroke = {
           ...updated.stroke,
-          curve: 'stepline',
+          curve: chartOptions.stroke,
         };
       }
 

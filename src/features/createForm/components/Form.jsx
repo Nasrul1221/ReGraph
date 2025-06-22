@@ -8,7 +8,7 @@ import { useChooseTemplate } from '../hooks/useChooseTemplate';
 import { useReset } from '../hooks/useReset';
 
 // Components
-import Select from './Select';
+import MySelect from '@/components/MySelect';
 import AddLabels from './AddLabels';
 import UploadFile from './UploadFile';
 import AnimatedButton from '@/components/AnimatedButton';
@@ -46,6 +46,10 @@ function Form() {
     setTypeChart,
   });
   const generateChart = useGenerateChart({ rawData, userData, labels, setChartData, typeChart });
+
+  const handleChange = (value) => {
+    setTypeChart(value);
+  };
 
   // When user data is uploaded, set dataCount with length,
   // labels fill with undfined, lines as a an empty arr
@@ -110,7 +114,7 @@ function Form() {
 
       <div>
         <AddLabels fun={addLine} count={count} />
-        <Select object={chartsTypes} setValue={setTypeChart} />
+        <MySelect object={chartsTypes} handleChange={handleChange} />
         <div className="flex flex-col gap-y-3 mt-5">
           {lines.map((item, index) => (
             <div key={index} className="flex items-center gap-3">
