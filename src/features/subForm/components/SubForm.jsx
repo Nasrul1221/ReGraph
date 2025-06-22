@@ -9,8 +9,8 @@ import { options } from '@/stores/chartOptions.jotai';
 import { useChangeOptions } from '../hooks/useChangeOptions';
 
 // Data
-import { formComponents } from '../data/formComponents';
-import { charts, components } from '../data/optionsObject';
+import { charts } from '../data/optionsObject';
+import { selects } from '../data/componentsData';
 
 // Framer motion
 import { motion } from 'framer-motion';
@@ -23,12 +23,44 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@radix-ui/react-slider';
 import { Label } from '@radix-ui/react-label';
 import { Select } from '@/components/ui/select';
+import MySelect from '@/components/MySelect';
+import MyCheckBox from './MyCheckBox';
+import MySlider from './MySlider';
 
 export default function SubForm() {
   const [chartOptions, setChartOptions] = useAtom(options);
   const [typeChart] = useAtom(typeChartAtom);
-  const Form = formComponents[typeChart];
   const chart = charts[typeChart];
+
+  const components = {
+    curve: MySelect,
+    markers: MyCheckBox,
+    width: MySlider,
+    toolbar: MyCheckBox,
+  };
+
+  const componentProps = {
+    curve: {
+      object: selects,
+      handleChange: (value) => {
+        setChartOptions((prev) => ({
+          ...prev,
+          stroke: value,
+        }));
+      },
+    },
+    markers: {
+      identifier: 'markers',
+      chartOptions: chartOptions,
+      setChartOptions: setChartOptions,
+    },
+    toolbar: {
+      identifier: 'toolbar',
+      chartOptions: chartOptions,
+      setChartOptions: setChartOptions,
+    },
+    width: { setChartOptions: setChartOptions },
+  };
 
   useChangeOptions();
 
@@ -39,26 +71,11 @@ export default function SubForm() {
       animate="visible"
       className="w-[300px] h-[200px] shadow-lg rounded-[10px] p-5 bg-secondary flex flex-col gap-1"
     >
-      {/* <div className="flex items-center gap-2">
-        <Checkbox
-          id="toolbar"
-          checked={chartOptions.toolbar}
-          onCheckedChange={(newState) =>
-            setChartOptions((prev) => ({
-              ...prev,
-              toolbar: newState,
-            }))
-          }
-        />
-        <Label htmlFor="toolbar">Toolbar</Label>
-      </div> */}
-
-      {/* {Form ? <Form /> : null} */}
-
       {chart &&
         Object.keys(chart).map((key, index) => {
           const Comp = components[key];
-          return <Comp key={index} />;
+          const props = componentProps[key];
+          return <Comp key={index} {...props} />;
         })}
     </motion.div>
   );
