@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
 
 export const options = atom({
-  stroke: false,
+  stroke: 'straight',
   markers: false,
   toolbar: false,
   width: 5,

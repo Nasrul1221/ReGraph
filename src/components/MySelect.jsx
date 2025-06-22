@@ -6,14 +6,10 @@ import {
   SelectValue,
   SelectGroup,
   SelectLabel,
-} from '../../../components/ui/select';
-import { wordToUpperCase } from '../../../lib/utils';
+} from './ui/select';
+import { wordToUpperCase } from '../lib/utils';
 
-export default function MySelect({ object, setValue }) {
-  const handleChange = (value) => {
-    setValue(value);
-  };
-
+export default function MySelect({ object = null, handleChange }) {
   return (
     <Select onValueChange={handleChange}>
       <SelectTrigger className="border-gray-700 rounded bg-background data-[placeholder]:text-secondary-foreground">

@@ -10,6 +10,7 @@ import { useChangeOptions } from '../hooks/useChangeOptions';
 
 // Data
 import { formComponents } from '../data/formComponents';
+import { charts, components } from '../data/optionsObject';
 
 // Framer motion
 import { motion } from 'framer-motion';
@@ -21,11 +22,13 @@ import { containerAnimation } from '@/styles/styles';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Slider } from '@radix-ui/react-slider';
 import { Label } from '@radix-ui/react-label';
+import { Select } from '@/components/ui/select';
 
 export default function SubForm() {
   const [chartOptions, setChartOptions] = useAtom(options);
   const [typeChart] = useAtom(typeChartAtom);
   const Form = formComponents[typeChart];
+  const chart = charts[typeChart];
 
   useChangeOptions();
 
@@ -36,7 +39,7 @@ export default function SubForm() {
       animate="visible"
       className="w-[300px] h-[200px] shadow-lg rounded-[10px] p-5 bg-secondary flex flex-col gap-1"
     >
-      <div className="flex items-center gap-2">
+      {/* <div className="flex items-center gap-2">
         <Checkbox
           id="toolbar"
           checked={chartOptions.toolbar}
@@ -48,35 +51,15 @@ export default function SubForm() {
           }
         />
         <Label htmlFor="toolbar">Toolbar</Label>
-      </div>
-      <div className="flex items-center gap-2">
-        <Checkbox
-          id="stroke"
-          checked={chartOptions.stroke}
-          onCheckedChange={(newState) =>
-            setChartOptions((prev) => ({
-              ...prev,
-              stroke: newState,
-            }))
-          }
-        />
-        <Label htmlFor="stroke">Stroke</Label>
-      </div>
+      </div> */}
 
-      <div className="flex items-center gap-2">
-        <Checkbox
-          id="markers"
-          checked={chartOptions.markers}
-          onCheckedChange={(newState) =>
-            setChartOptions((prev) => ({
-              ...prev,
-              markers: newState,
-            }))
-          }
-        />
-        <Label htmlFor="markers">Markers</Label>
-      </div>
-      {Form ? <Form /> : null}
+      {/* {Form ? <Form /> : null} */}
+
+      {chart &&
+        Object.keys(chart).map((key, index) => {
+          const Comp = components[key];
+          return <Comp key={index} />;
+        })}
     </motion.div>
   );
 }
