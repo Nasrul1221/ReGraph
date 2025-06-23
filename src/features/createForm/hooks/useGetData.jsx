@@ -15,7 +15,6 @@ function useGetData() {
     reader.onload = (event) => {
       try {
         const json = JSON.parse(event.target.result);
-        if (!json?.options) throw new Error("'options' is required!");
         if (!json?.series) throw new Error("'series' is required!");
 
         setUserData(json);

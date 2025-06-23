@@ -10,7 +10,7 @@ export const useGenerateChart = ({ rawData, userData, labels, setChartData, type
             name: labels[index] || item.name,
           }));
 
-          const updatedXaxis = [...userData.options.xaxis.categories];
+          const updatedXaxis = [...userData.xaxis.categories];
 
           setChartData({
             ...rawData,

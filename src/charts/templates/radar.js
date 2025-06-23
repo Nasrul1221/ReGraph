@@ -6,7 +6,19 @@ export const radar = {
     },
     xaxis: {
       categories: ['Math', 'Science', 'English', 'History', 'Art'],
+      labels: {
+        style: {
+          colors: 'hsl(227.1 45.9% 78.2%)',
+        }
+      }
     },
+    yaxis: {
+      labels: {
+        style: {
+          colors: '#ffff'
+        }
+      }
+    }
   },
   series: [
     {
