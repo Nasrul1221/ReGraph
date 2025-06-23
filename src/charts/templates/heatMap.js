@@ -4,15 +4,21 @@ export const heatmap = {
       id: 'heatmap-chart',
       type: 'heatmap',
     },
-
-    yaxis: {
-    labels: {
-      style: {
-        colors: 'hsl(227.1 45.9% 78.2%)',
-        fontSize: '18px'
+    xaxis: {
+      labels: {
+        style: {
+          colors: 'hsl(227.1 45.9% 78.2%)'
+        }
       }
-    }
-  },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: 'hsl(227.1 45.9% 78.2%)',
+          fontSize: '18px'
+        }
+      }
+    },
   },
   series: [
     {

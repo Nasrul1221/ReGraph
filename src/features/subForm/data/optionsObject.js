@@ -1,15 +1,3 @@
-// Atom
-import { useAtom } from "jotai";
-
-// Components
-import MySelect from "@/components/MySelect";
-import { Checkbox } from "@/components/ui/checkbox"
-import { Select } from "@/components/ui/select"
-import { Slider } from "@/components/ui/slider"
-
-// Data
-import { selects } from "./componentsData";
-
 export const charts = {
     area: {
         curve: true,
@@ -26,5 +14,26 @@ export const charts = {
         markers: true,
         toolbar: true,
         width: true
+    },
+    bar: {
+        toolbar: true,
+    },
+    column: {
+        toolbar: true
+    },
+    pie: {
+        toolbar: true
+    },
+    radar: {
+        toolbar: true
+    },
+    radialBar: {
+        toolbar: true
+    },
+    donut: {
+        toolbar: true
+    },
+    heatmap: {
+        toolbar: true
     }
 }

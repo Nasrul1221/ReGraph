@@ -7,6 +7,7 @@ export const bar = {
     plotOptions: {
       bar: {
         horizontal: true,
+        endingShape: 'rounded'
       },
     },
     legend: {
