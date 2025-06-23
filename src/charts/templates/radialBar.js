@@ -7,9 +7,17 @@ export const radialBar = {
     plotOptions: {
       radialBar: {
         dataLabels: {
+          name: {
+            color: "hsl(227.1 45.9% 78.2%)",
+            fontSize: '20px',
+          },
+          value: {
+            color: 'hsl(227.1 45.9% 78.2%)'
+          },
           total: {
             show: true,
             label: 'Total',
+            color: 'hsl(227.1 45.9% 78.2%)',
             formatter: function () {
               return 249;
             },

@@ -7,9 +7,29 @@ export const line = {
         enabled: false,
       },
     },
+    legend: {
+      labels: {
+        colors: 'hsl(227.1 45.9% 78.2%)'
+      }
+    },
+    grid: {
+      borderColor: "hsl(227.1 45.9% 78.2%)"
+    },
     xaxis: {
       categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
+      labels: {
+        style: {
+          colors: 'hsl(227.1 45.9% 78.2%)'
+        }
+      }
     },
+    yaxis: {
+      labels: {
+        style: {
+          colors: 'hsl(227.1 45.9% 78.2%)'
+        }
+      }
+    }
   },
   series: [
     {
