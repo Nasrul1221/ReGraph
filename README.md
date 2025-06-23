@@ -19,14 +19,9 @@ The versatile website, create your own charts, check game statistics and so on
 
 ```json
 {
-  "options": {
-    "chart": {
-      "id": "basic-bar"
-    },
-    "xaxis": {
-      "categories": ["Jan", "Feb", "Mar", "Apr"]
-    }
-  },
+  "xaxis": {
+    "categories": ["Jan", "Feb", "Mar", "Apr"]
+  }
   "series": [
     {
       "data": [10, 20, 30, 40]
