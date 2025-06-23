@@ -19,10 +19,6 @@ import { motion } from 'framer-motion';
 import { containerAnimation } from '@/styles/styles';
 
 // Shadcn UI
-import { Checkbox } from '@/components/ui/checkbox';
-import { Slider } from '@radix-ui/react-slider';
-import { Label } from '@radix-ui/react-label';
-import { Select } from '@/components/ui/select';
 import MySelect from '@/components/MySelect';
 import MyCheckBox from './MyCheckBox';
 import MySlider from './MySlider';
