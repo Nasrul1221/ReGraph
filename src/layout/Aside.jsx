@@ -44,7 +44,7 @@ export default function Aside() {
     {
       id: 'gameStat',
       label: 'Game statistics',
-      path: '/game-statistics',
+      path: '/gameStatistics',
       icon: Gamepad,
     },
   ];

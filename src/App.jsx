@@ -21,7 +21,7 @@ export default function App() {
             <Route path="/charts" element={<Charts />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/create-chart" element={<CreatePage />} />
-            <Route path="/game-statistics" element={<GameStatistics />} />
+            <Route path="/gameStatistics" element={<GameStatistics />} />
           </Route>
         </Routes>
       </BrowserRouter>
