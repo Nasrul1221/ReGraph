@@ -1,14 +1,14 @@
-import UserName from '@/features/GameStatistics/userNameForm/components/UserName';
+import UserName from '@/features/GameStatistics/userNameForm/components/userSteamIdForm';
 import Dashboard from '@/features/GameStatistics/Dashboard/Dashboard';
 
 import { useAtom } from 'jotai';
-import { userNameJotai } from '@/features/GameStatistics/stores/userName.jotai';
+import { steamDataJotai } from '@/features/GameStatistics/stores/steamData.jotai';
 
 export default function GameStatistics() {
-  const [userName] = useAtom(userNameJotai);
+  const [steamData] = useAtom(steamDataJotai);
   return (
     <section className="p-10 flex items-center m-auto">
-      {userName ? <Dashboard /> : <UserName />}
+      {steamData.steamID ? <Dashboard /> : <UserName />}
     </section>
   );
 }

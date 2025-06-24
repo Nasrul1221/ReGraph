@@ -1,8 +1,8 @@
 import { useAtom } from 'jotai';
-import { userNameJotai } from '../stores/userName.jotai';
+import { steamDataJotai } from '../stores/steamData.jotai';
 
 export default function Dashboard() {
-  const [userName] = useAtom(userNameJotai);
+  const [steamData] = useAtom(steamDataJotai);
 
-  return <div>{userName && <p>{userName}</p>}</div>;
+  return <p>{steamData.steamID}</p>;
 }
