@@ -13,11 +13,15 @@ import { useState } from 'react';
 export default function UserName() {
   const [userName, setUserName] = useAtom(userNameJotai);
   const [inputValue, setInputValue] = useState('');
+  const steamIDD = '76561199401515463';
+
+  fetch(`http://localhost:3000/steam/userstats?steamid=76561199401515463&appid=730`)
+    .then((res) => res.json())
+    .then((data) => console.log(data));
 
   const handleClick = () => {
     if (inputValue.trim() === '') return;
     setUserName(inputValue);
-    console.log(inputValue);
   };
 
   const handleChange = (e) => {
