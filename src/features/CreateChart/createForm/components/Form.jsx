@@ -12,6 +12,7 @@ import MySelect from '@/components/MySelect';
 import AddLabels from './AddLabels';
 import UploadFile from './UploadFile';
 import AnimatedButton from '@/components/AnimatedButton';
+import MyInput from '@/components/MyInput';
 
 // Shadcn UI components
 import { Button } from '../../../../components/ui/button';
@@ -118,12 +119,11 @@ function Form() {
         <div className="flex flex-col gap-y-3 mt-5">
           {lines.map((item, index) => (
             <div key={index} className="flex items-center gap-3">
-              <Input
+              <MyInput
                 id={`text-${index}`}
                 onChange={(e) => handleInputChange(index, e.target.value)}
                 value={lines[index]}
                 placeholder="write here"
-                className="w-[120px] outline-none border-gray-700 text-secondary-foreground bg-background rounded p-2"
               />
               <AnimatedButton onClick={() => handleApply(index)}>Apply</AnimatedButton>
             </div>

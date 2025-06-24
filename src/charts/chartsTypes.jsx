@@ -1,29 +1,38 @@
 export const chartsTypes = [
   {
-    type: 'line',
+    label: 'line',
+    value: 'line',
   },
   {
-    type: 'area',
+    label: 'area',
+    value: 'area',
   },
   {
-    type: 'bar',
+    label: 'bar',
+    value: 'bar',
   },
   {
-    type: 'column',
+    label: 'column',
+    value: 'column',
   },
   {
-    type: 'pie',
+    label: 'pie',
+    value: 'pie',
   },
   {
-    type: 'donut',
+    label: 'donut',
+    value: 'donut',
   },
   {
-    type: 'radar',
+    label: 'radar',
+    value: 'radar',
   },
   {
-    type: 'heatmap',
+    label: 'heatmap',
+    value: 'heatmap',
   },
   {
-    type: 'radialBar',
+    label: 'radialBar',
+    value: 'radialBar',
   },
 ];

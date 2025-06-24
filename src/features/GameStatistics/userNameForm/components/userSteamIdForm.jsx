@@ -1,7 +1,7 @@
 // Components
 import AnimatedButton from '@/components/AnimatedButton';
 import Card from '@/components/Card';
-import { Input } from '@/components/ui/input';
+import MyInput from '@/components/MyInput';
 
 // Stores && Jotai
 import { steamDataJotai } from '../../stores/steamData.jotai';
@@ -10,7 +10,7 @@ import { useAtom } from 'jotai';
 // React
 import { useState } from 'react';
 
-export default function UserName() {
+export default function UserNameSteamIdForm() {
   const [, setSteamData] = useAtom(steamDataJotai);
   const [inputValue, setInputValue] = useState('');
   const steamIDD = '76561199401515463';
@@ -34,13 +34,11 @@ export default function UserName() {
   };
 
   return (
-    <div>
-      <Card className="flex flex-col items-center gap-y-2">
-        <Input onChange={handleChange} value={inputValue} />
-        <AnimatedButton variant="linearGradient" onClick={handleClick}>
-          Enter
-        </AnimatedButton>
-      </Card>
-    </div>
+    <Card className="flex flex-col items-center gap-y-2 w-[200px]">
+      <MyInput onChange={handleChange} value={inputValue} placeholder="Enter your steam ID" />
+      <AnimatedButton variant="linearGradient" onClick={handleClick}>
+        Enter
+      </AnimatedButton>
+    </Card>
   );
 }

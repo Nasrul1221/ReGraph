@@ -19,8 +19,8 @@ export default function MySelect({ object = null, handleChange }) {
         <SelectGroup>
           <SelectLabel className="text-secondary-foreground">Types</SelectLabel>
           {object.map((item, index) => (
-            <SelectItem key={index} value={item.type} className="text-secondary-foreground">
-              {wordToUpperCase(item.type)}
+            <SelectItem key={index} value={item.value} className="text-secondary-foreground">
+              {wordToUpperCase(item.label)}
             </SelectItem>
           ))}
         </SelectGroup>

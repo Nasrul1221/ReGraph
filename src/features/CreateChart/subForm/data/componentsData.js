@@ -1,11 +1,14 @@
 export const selects = [
   {
-    type: 'straight',
+    label: 'straight',
+    value: 'straight',
   },
   {
-    type: 'smooth',
+    label: 'smooth',
+    value: 'smooth',
   },
   {
-    type: 'stepline',
+    label: 'stepline',
+    value: 'stepline',
   },
 ];
