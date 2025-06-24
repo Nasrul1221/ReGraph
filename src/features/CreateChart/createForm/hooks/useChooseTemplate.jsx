@@ -1,5 +1,5 @@
 import { useAtom } from 'jotai';
-import * as chartTemplates from '../../../charts/templates';
+import * as chartTemplates from '../../../../charts/templates';
 import { rawDataAtom } from '@/stores/dataCharts.jotai';
 
 export function useChooseTemplate(typeChart) {

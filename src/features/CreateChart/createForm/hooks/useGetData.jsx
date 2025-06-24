@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useAtom } from 'jotai';
-import { userDataJotai } from '../../../stores/dataCharts.jotai';
+import { userDataJotai } from '../../../../stores/dataCharts.jotai';
 
 function useGetData() {
   const [, setUserData] = useAtom(userDataJotai);

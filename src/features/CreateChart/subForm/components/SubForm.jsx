@@ -2,7 +2,7 @@
 import { useAtom } from 'jotai';
 
 // Jotai stores
-import { typeChartAtom } from '../../../stores/typeCharts.jotai';
+import { typeChartAtom } from '../../../../stores/typeCharts.jotai';
 import { options } from '@/stores/chartOptions.jotai';
 
 // Custom hooks

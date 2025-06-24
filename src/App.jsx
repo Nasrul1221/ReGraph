@@ -1,10 +1,15 @@
+// Router
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+// Layout
 import SharedLayout from './layout/SharedLayout';
+
+// Pages
 import Home from './pages/Home';
+import GameStatistics from './pages/GameStatistics';
 import Charts from './pages/Charts';
 import Profile from './pages/Profile';
 import CreatePage from './pages/CreatePage';
-import Form from './features/createForm/components/Form';
 
 export default function App() {
   return (
@@ -16,6 +21,7 @@ export default function App() {
             <Route path="/charts" element={<Charts />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/create-chart" element={<CreatePage />} />
+            <Route path="/game-statistics" element={<GameStatistics />} />
           </Route>
         </Routes>
       </BrowserRouter>

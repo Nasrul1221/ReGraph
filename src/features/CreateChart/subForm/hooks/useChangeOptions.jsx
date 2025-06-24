@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useAtom } from 'jotai';
 
-import { rawDataAtom } from '../../../stores/dataCharts.jotai';
-import { options } from '../../../stores/chartOptions.jotai';
+import { rawDataAtom } from '../../../../stores/dataCharts.jotai';
+import { options } from '../../../../stores/chartOptions.jotai';
 
 export function useChangeOptions() {
   const [, setRawData] = useAtom(rawDataAtom);

@@ -14,17 +14,17 @@ import UploadFile from './UploadFile';
 import AnimatedButton from '@/components/AnimatedButton';
 
 // Shadcn UI components
-import { Button } from '../../../components/ui/button';
-import { Input } from '../../../components/ui/input';
-import { Label } from '../../../components/ui/label';
+import { Button } from '../../../../components/ui/button';
+import { Input } from '../../../../components/ui/input';
+import { Label } from '../../../../components/ui/label';
 
 // Jotai stores
-import { userDataJotai } from '../../../stores/dataCharts.jotai';
-import { typeChartAtom } from '../../../stores/typeCharts.jotai';
-import { rawDataAtom, chartDataAtom } from '../../../stores/dataCharts.jotai';
+import { userDataJotai } from '../../../../stores/dataCharts.jotai';
+import { typeChartAtom } from '../../../../stores/typeCharts.jotai';
+import { rawDataAtom, chartDataAtom } from '../../../../stores/dataCharts.jotai';
 
 // Charts
-import { chartsTypes } from '../../../charts/chartsTypes';
+import { chartsTypes } from '../../../../charts/chartsTypes';
 import { useGenerateChart } from '../hooks/useGenerateChart';
 
 function Form() {

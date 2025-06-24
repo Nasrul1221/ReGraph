@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/sidebar';
 
 //Icons
-import { House, ChartLine } from 'lucide-react';
+import { House, ChartLine, Gamepad } from 'lucide-react';
 
 //React && State
 import { useState, useEffect } from 'react';
@@ -40,6 +40,12 @@ export default function Aside() {
       label: 'Create chart',
       path: '/create-chart',
       icon: ChartLine,
+    },
+    {
+      id: 'gameStat',
+      label: 'Game statistics',
+      path: '/game-statistics',
+      icon: Gamepad,
     },
   ];
 

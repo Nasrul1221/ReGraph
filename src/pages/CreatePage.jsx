@@ -5,8 +5,8 @@ import Chart from 'react-apexcharts';
 import Card from '@/components/Card';
 
 // Features (Components)
-import Form from '../features/createForm/components/Form';
-import SubForm from '../features/subForm/components/SubForm';
+import Form from '../features/CreateChart/createForm/components/Form';
+import SubForm from '../features/CreateChart/subForm/components/SubForm';
 
 // React && State
 import { useAtom } from 'jotai';
