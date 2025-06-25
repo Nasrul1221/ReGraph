@@ -26,14 +26,22 @@ export default function GameStatistics() {
 
     try {
       setLoad(true);
-      const response = await fetch(
-        `http://localhost:3000/steam/gamestats?steamid=${userSteamData.steamID}`
-      );
+      const [gameRes, achRes] = await Promise.all([
+        fetch(`http://localhost:3000/steam/gamestats?steamid=${userSteamData.steamID}`),
+        fetch(
+          `http://localhost:3000/steam/achievements?steamid=${userSteamData.steamID}&appid=${userSteamData.appID}`
+        ),
+      ]);
 
-      const data = await response.json();
+      const gameStats = await gameRes.json();
+      const achievements = await achRes.json();
+
+      console.log(gameStats, achievements);
+
+      localStorage.setItem('gameStats', JSON.stringify(gameStats));
+      localStorage.setItem('achievements', JSON.stringify(achievements));
+
       setIsActive((prev) => !prev);
-
-      localStorage.setItem('gameStats', JSON.stringify(data));
 
       setLoad(false);
     } catch (error) {

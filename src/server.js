@@ -6,10 +6,10 @@ const app = express()
 const PORT = 3000
 
 app.use(cors())
+const apiKey = '1F748B134FB6633E90F3296D31FB0540'
 
 app.get('/steam/gamestats', async (req, res) => {
     const {steamid} = req.query
-    const apiKey = '1F748B134FB6633E90F3296D31FB0540'
 
     if (!steamid) {
         return res.status(400).json({ error: 'Missing steamid or appid' })
@@ -26,7 +26,7 @@ app.get('/steam/gamestats', async (req, res) => {
     }
 })
 
-app.get('steam/achievements', async (req, res) => {
+app.get('/steam/achievements', async (req, res) => {
     const {steamid, appid} = req.query
     
     if (!steamid || !appid) {
@@ -34,7 +34,7 @@ app.get('steam/achievements', async (req, res) => {
     }
 
     try {
-        const response = await fetch(`http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=${app}&key={apiKey}&steamid=${steamid}`)
+        const response = await fetch(`http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=${appid}&key=${apiKey}&steamid=${steamid}`)
         
         const data = await response.json()
 

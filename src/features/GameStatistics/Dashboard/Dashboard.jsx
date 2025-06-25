@@ -3,18 +3,25 @@ import * as chartTemplates from '../../../charts/templates';
 
 // Components
 import Card from '@/components/Card';
+import { options } from '@/pages/homePageData/data';
 
 export default function Dashboard() {
   const gameStats = JSON.parse(localStorage.getItem('gameStats'));
+  const achievements = JSON.parse(localStorage.getItem('achievements'));
+
   let colChart = chartTemplates['column'];
   let pieChart = chartTemplates['pie'];
 
-  // let count = 0;
-  // gameStats.playerstats.achievements.forEach((item) => {
-  //   if (item.achieved) count++;
-  // });
+  let completedAch = 0;
+  if (achievements.playerstats.achievements) {
+    achievements.playerstats.achievements.forEach((item) => {
+      if (item.achieved) completedAch++;
+    });
+  }
 
-  // console.log(count);
+  const totalAch = achievements.playerstats.achievements.length;
+  const uncompletedAch = totalAch - completedAch;
+  console.log(completedAch);
 
   const seriesData = gameStats.response.games.map((item) =>
     (item.playtime_forever / 60).toFixed(1)
@@ -35,6 +42,15 @@ export default function Dashboard() {
     series: [{ data: seriesData }],
   };
 
+  pieChart = {
+    ...pieChart,
+    options: {
+      ...pieChart.options,
+      labels: ['Achieved', 'Not achieved'],
+    },
+    series: [completedAch, uncompletedAch],
+  };
+
   return (
     <div>
       <Card>
@@ -46,7 +62,13 @@ export default function Dashboard() {
           width={colChart.width}
         />
 
-        {/* <Chart /> */}
+        <Chart
+          options={pieChart.options}
+          series={pieChart.series}
+          type="pie"
+          height={pieChart.height}
+          width={pieChart.width}
+        />
       </Card>
     </div>
   );

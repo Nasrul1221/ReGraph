@@ -16,6 +16,10 @@ const obj = [
     label: 'Dota 2',
     value: '570',
   },
+  {
+    label: 'Geometry Dash',
+    value: '322170',
+  },
 ];
 
 export default function UserSteamGameForm() {
