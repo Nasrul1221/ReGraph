@@ -20,9 +20,9 @@ import { Input } from '../../../../components/ui/input';
 import { Label } from '../../../../components/ui/label';
 
 // Jotai stores
-import { userDataJotai } from '../../../../stores/dataCharts.jotai';
-import { typeChartAtom } from '../../../../stores/typeCharts.jotai';
-import { rawDataAtom, chartDataAtom } from '../../../../stores/dataCharts.jotai';
+import { userDataJotai } from '../stores/dataCharts.jotai';
+import { typeChartAtom } from '../stores/typeCharts.jotai';
+import { rawDataAtom, chartDataAtom } from '../stores/dataCharts.jotai';
 
 // Charts
 import { chartsTypes } from '../../../../charts/chartsTypes';

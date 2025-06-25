@@ -2,8 +2,8 @@
 import { useAtom } from 'jotai';
 
 // Jotai stores
-import { typeChartAtom } from '../../../../stores/typeCharts.jotai';
-import { options } from '@/stores/chartOptions.jotai';
+import { typeChartAtom } from '../../createForm/stores/typeCharts.jotai';
+import { options } from '@/features/CreateChart/createForm/stores/chartOptions.jotai';
 
 // Custom hooks
 import { useChangeOptions } from '../hooks/useChangeOptions';

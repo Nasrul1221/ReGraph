@@ -19,7 +19,7 @@ export const column = {
       borderColor: "hsl(227.1 45.9% 78.2%)"
     },
     xaxis: {
-      categories: [],
+      categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
       labels: {
         style: {
           colors: 'hsl(227.1 45.9% 78.2%)'
@@ -35,7 +35,9 @@ export const column = {
     }
   },
   series: [
-    
+    {
+      data: [30, 40, 45, 50, 49, 60, 70, 91],
+    },
   ],
   height: 350,
   width: 700,

@@ -1,5 +1,5 @@
 import { useAtom } from 'jotai';
-import { options } from '@/stores/chartOptions.jotai';
+import { options } from '@/features/CreateChart/createForm/stores/chartOptions.jotai';
 
 export const useReset = ({
   setLabels,

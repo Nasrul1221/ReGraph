@@ -13,8 +13,8 @@ import { useAtom } from 'jotai';
 import { useEffect } from 'react';
 
 // Stores
-import { typeChartAtom } from '../stores/typeCharts.jotai';
-import { chartDataAtom } from '../stores/dataCharts.jotai';
+import { typeChartAtom } from '../features/CreateChart/createForm/stores/typeCharts.jotai';
+import { chartDataAtom } from '../features/CreateChart/createForm/stores/dataCharts.jotai';
 
 //Shadcn UI
 import { Button } from '../components/ui/button';
