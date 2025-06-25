@@ -7,19 +7,19 @@ import Loader from '@/components/ui/loader';
 
 // JOTAI
 import { useAtom } from 'jotai';
-import { steamDataJotai } from '@/features/GameStatistics/stores/steamData.jotai';
+import { userSteamDataJotai } from '@/features/GameStatistics/stores/userSteamData.jotai';
 
 // Framer motion
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 export default function GameStatistics() {
-  const [steamData] = useAtom(steamDataJotai);
+  const [userSteamData] = useAtom(userSteamDataJotai);
   const [isActive, setIsActive] = useState(false);
   const [load, setLoad] = useState(false);
 
   const handleClick = async () => {
-    if (!steamData.steamID || !steamData.appID) {
+    if (!userSteamData.steamID || !userSteamData.appID) {
       console.log('1');
       return;
     }
@@ -27,12 +27,13 @@ export default function GameStatistics() {
     try {
       setLoad(true);
       const response = await fetch(
-        `http://localhost:3000/steam/userstats?steamid=${steamData.steamID}&appid=${steamData.appID}`
+        `http://localhost:3000/steam/gamestats?steamid=${userSteamData.steamID}`
       );
 
       const data = await response.json();
-      console.log(data);
       setIsActive((prev) => !prev);
+
+      localStorage.setItem('gameStats', JSON.stringify(data));
 
       setLoad(false);
     } catch (error) {
@@ -49,7 +50,7 @@ export default function GameStatistics() {
           {isActive ? (
             <Dashboard />
           ) : (
-            <section className="p-10 flex flex-col items-center m-auto gap-2">
+            <section className="p-10 flex flex-col items-center m-auto gap-y-10">
               <motion.div variants={container} initial="hidden" animate="visible" className="flex">
                 {"Here you can track your steam games' data".split('').map((char, index) => (
                   <motion.span key={index} variants={child} className="text-3xl">
@@ -60,8 +61,8 @@ export default function GameStatistics() {
               <div className="flex gap-x-2">
                 <UserNameSteamIdForm />
                 <UserSteamGameForm />
-                <AnimatedButton onClick={handleClick}>Click</AnimatedButton>
               </div>
+              <AnimatedButton onClick={handleClick}>Click</AnimatedButton>
             </section>
           )}
         </div>

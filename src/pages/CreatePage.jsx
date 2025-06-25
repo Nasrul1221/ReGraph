@@ -12,9 +12,6 @@ import SubForm from '../features/CreateChart/subForm/components/SubForm';
 import { useAtom } from 'jotai';
 import { useEffect } from 'react';
 
-// Hooks
-import { useAddToStorage } from '../hooks/useAddToStorage';
-
 // Stores
 import { typeChartAtom } from '../stores/typeCharts.jotai';
 import { chartDataAtom } from '../stores/dataCharts.jotai';
@@ -25,7 +22,6 @@ import { Button } from '../components/ui/button';
 export default function CreatePage() {
   const [chartData] = useAtom(chartDataAtom);
   const [typeChart] = useAtom(typeChartAtom);
-  const handleClick = useAddToStorage();
 
   useEffect(() => {
     console.log(chartData);
@@ -46,7 +42,6 @@ export default function CreatePage() {
               width={chartData.width}
               type={`${chartData.options.chart.type || 'line'}`}
             />
-            <Button onClick={handleClick}>Save</Button>
           </Card>
         )}
       </div>

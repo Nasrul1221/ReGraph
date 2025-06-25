@@ -1,17 +1,18 @@
 // Components
 import AnimatedButton from '@/components/AnimatedButton';
-import Card from '@/components/Card';
+import CardForm from '@/components/CardForm';
 import MyInput from '@/components/MyInput';
 
 // Stores && Jotai
-import { steamDataJotai } from '../../stores/steamData.jotai';
+import { userSteamDataJotai } from '../../stores/userSteamData.jotai';
 import { useAtom } from 'jotai';
 
 // React
 import { useState } from 'react';
+import { Label } from '@radix-ui/react-label';
 
 export default function UserNameSteamIdForm() {
-  const [, setSteamData] = useAtom(steamDataJotai);
+  const [, setUserSteamData] = useAtom(userSteamDataJotai);
   const [inputValue, setInputValue] = useState('');
   const steamIDD = '76561199401515463';
 
@@ -21,7 +22,7 @@ export default function UserNameSteamIdForm() {
     //   `http://localhost:3000/steam/userstats?steamid=${inputValue}&appid=730`
     // );
     // const data = await response.json();
-    setSteamData((prev) => ({
+    setUserSteamData((prev) => ({
       ...prev,
       steamID: inputValue,
     }));
@@ -34,11 +35,23 @@ export default function UserNameSteamIdForm() {
   };
 
   return (
-    <Card className="flex flex-col items-center gap-y-2 w-[200px]">
-      <MyInput onChange={handleChange} value={inputValue} placeholder="Enter your steam ID" />
-      <AnimatedButton variant="linearGradient" onClick={handleClick}>
-        Enter
-      </AnimatedButton>
-    </Card>
+    <CardForm className="flex flex-col items-center gap-y-2 w-[300px]">
+      <Label htmlFor="steamID">Steam ID</Label>
+      <div className="flex gap-x-2">
+        <MyInput
+          onChange={handleChange}
+          value={inputValue}
+          placeholder="Enter your steam ID"
+          required
+          autoComplete="on"
+          type="text"
+          id="steamID"
+          name="steam-id"
+        />
+        <AnimatedButton variant="linearGradient" onClick={handleClick} type="button">
+          Enter
+        </AnimatedButton>
+      </div>
+    </CardForm>
   );
 }

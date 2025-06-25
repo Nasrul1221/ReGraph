@@ -3,8 +3,9 @@ import React from 'react';
 
 // JOTAI
 import { useAtom } from 'jotai';
-import { steamDataJotai } from '../../stores/steamData.jotai';
-import Card from '@/components/Card';
+import { userSteamDataJotai } from '../../stores/userSteamData.jotai';
+import CardForm from '@/components/CardForm';
+import { Label } from '@radix-ui/react-label';
 
 const obj = [
   {
@@ -18,13 +19,14 @@ const obj = [
 ];
 
 export default function UserSteamGameForm() {
-  const [, setSteamData] = useAtom(steamDataJotai);
+  const [, setUserSteamData] = useAtom(userSteamDataJotai);
   const handleChange = (value) => {
-    setSteamData((prev) => ({ ...prev, appID: value }));
+    setUserSteamData((prev) => ({ ...prev, appID: value }));
   };
   return (
-    <Card className="w-[200px]">
-      <MySelect object={obj} handleChange={handleChange} />
-    </Card>
+    <CardForm className="w-[300px] flex flex-col items-center gap-y-2">
+      <Label htmlFor="game">Choose a game</Label>
+      <MySelect object={obj} handleChange={handleChange} id="game" />
+    </CardForm>
   );
 }

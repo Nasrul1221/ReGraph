@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 
-export const steamDataJotai = atom({
+export const userSteamDataJotai = atom({
   steamID: null,
   appID: null,
 });
