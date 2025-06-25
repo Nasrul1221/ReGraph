@@ -1,3 +1,5 @@
+import { transform } from 'framer-motion';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ['class'],
@@ -85,7 +87,8 @@ export default {
   		animation: {
   			'fade-in': 'fadeIn 1s ease-in-out forwards',
   			'move-from-left': 'moveFromLeft 1s ease-in-out forwards',
-  			blur: 'blur 1s ease-in-out forwards'
+  			'blur': 'blur 1s ease-in-out forwards',
+			'rotate': 'rotate 1s linear infinite'
   		},
   		keyframes: {
   			fadeIn: {
@@ -117,7 +120,15 @@ export default {
   					transform: 'translateX(0)',
   					filter: 'blur(0)'
   				}
-  			}
+  			},
+			rotate: {
+				'0%': {
+					transform: 'rotate(0deg)'
+				},
+				'100%': {
+					transform: 'rotate(360deg)'
+				}
+			}	
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

@@ -78,15 +78,13 @@ const container = {
 const child = {
   hidden: {
     opacity: 0,
-    y: 20,
+    y: -20,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      type: 'spring',
-      stiffness: 200,
-      damping: 8,
+      duration: 0.3,
     },
   },
 };
