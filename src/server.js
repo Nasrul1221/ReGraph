@@ -75,7 +75,25 @@ app.get('/steam/ownedgames', async (req, res) => {
     }
 
     try {
-        const response = await fetch(`http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${API_KEY}&steamid=${steamid}&format=json`)
+        const response = await fetch(`http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${API_KEY}&steamid=${steamid}$include_appinfo=true&format=json`)
+        
+        const data = await response.json()
+
+        res.json(data)
+    }catch(error) {
+        res.status(500).json({error: error.message})
+    }
+})
+
+app.get('/steam/user', async (req, res) => {
+    const {steamid} = req.query
+    
+    if (!steamid) {
+        return res.status(400).json({error: "Missing steamid or appid"})
+    }
+
+    try {
+        const response = await fetch(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${API_KEY}&steamids=${steamid}`)
         
         const data = await response.json()
 

@@ -16,11 +16,25 @@ export default function Dashboard() {
   const achievements = JSON.parse(localStorage.getItem('achievements'));
   const gameStats = JSON.parse(localStorage.getItem('gameStats'));
   const ownedGames = JSON.parse(localStorage.getItem('ownedGames'));
+  const user = JSON.parse(localStorage.getItem('user'));
+  console.log(gameStats);
 
   const [userSteamData, setUserSteamData] = useAtom(userSteamDataJotai);
 
   const [isAch, setIsAch] = useState(false);
   const [pieChart, setPieChart] = useState(chartTemplates['pie']);
+
+  const online = (
+    <p className="bg-[#05C168] bg-opacity-[0.3] text-center rounded-[2px] text-[#05C168] mb-2 border border-[#05C168] border-opacity-[0.2]">
+      Online
+    </p>
+  );
+  const offline = (
+    <p className="bg-[#FF5A65] bg-opacity-[0.3] text-center rounded-[2px] text-[#FF5A65] mb-2 border border-[#FF5A65] border-opacity-[0.2]">
+      Offline
+    </p>
+  );
+  const dateCreated = new Date(user.response.players[0].timecreated * 1000);
 
   let colChart = chartTemplates['column'];
 
@@ -34,16 +48,18 @@ export default function Dashboard() {
       251570: 'Deaths',
     },
   };
-  const totalKills = gameStats.playerstats.stats.find(
+  const totalKills = gameStats?.playerstats?.stats?.find(
     (item) => item.name === obj.kills[userSteamData.appID]
   )?.value;
-  const totalDeaths = gameStats.playerstats.stats.find(
+  const totalDeaths = gameStats?.playerstats?.stats?.find(
     (item) => item.name === obj.deaths[userSteamData.appID]
   )?.value;
-  console.log(userSteamData.appID);
+
   const totalTime =
     ownedGames.response.games.find((item) => item.appid === Number(userSteamData.appID))
       ?.playtime_forever / 60;
+
+  const game = ownedGames.response.games.find((item) => item.appid === Number(userSteamData.appID));
 
   // Pie chart
   useEffect(() => {
@@ -53,7 +69,6 @@ export default function Dashboard() {
 
       const totalAch = achievements.playerstats.achievements.length;
       const uncompletedAch = totalAch - completedAch;
-      console.log(completedAch);
 
       setPieChart((prev) => ({
         ...prev,
@@ -97,13 +112,50 @@ export default function Dashboard() {
       <section>
         <h1 className="text-center text-foreground text-2xl mb-1">General stats</h1>
         <div className="grid grid-rows-2 gap-4">
+          <Card>
+            <h1 className="text-xl">User profile</h1>
+            <div className="mt-3 flex gap-2">
+              <div>
+                <img
+                  src={user.response.players[0].avatarfull}
+                  width="100"
+                  className="rounded mb-2"
+                />
+                {user.response.players[0].personastate ? online : offline}
+              </div>
+
+              <div>
+                <p className="font-bold">
+                  Nickname:{' '}
+                  <span className="font-normal">{user.response?.players[0]?.personaname}</span>
+                </p>
+                <p className="font-bold">
+                  Real name:{' '}
+                  <span className="font-normal">{user.response?.players[0]?.realname}</span>
+                </p>
+                <p className="font-bold">
+                  Date: <span className="font-normal">{dateCreated.toLocaleString()}</span>
+                </p>
+                <p className="font-bold">
+                  Profile:{' '}
+                  <a
+                    className="font-normal hover:text-highlight-secondary transition-colors duration-300"
+                    href={user.response.players[0].profileurl}
+                    target="_blank"
+                  >
+                    Click here
+                  </a>
+                </p>
+              </div>
+            </div>
+          </Card>
           <Card className="">
             <Chart
               options={colChart.options}
               series={colChart.series}
               type="bar"
               height="250"
-              width="400"
+              width="500"
             />
           </Card>
         </div>
@@ -155,8 +207,10 @@ export default function Dashboard() {
                   height="250"
                   width="500"
                 />
-              ) : (
+              ) : game ? (
                 <div>This game does not have any achievements</div>
+              ) : (
+                <div>Probably you do not have this game in your library</div>
               )}
             </Card>
           </div>
