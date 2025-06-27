@@ -26,20 +26,27 @@ export default function GameStatistics() {
 
     try {
       setLoad(true);
-      const [gameRes, achRes] = await Promise.all([
-        fetch(`http://localhost:3000/steam/gamestats?steamid=${userSteamData.steamID}`),
+      const [recentGamesRes, achRes, gameRes, ownedRes] = await Promise.all([
+        fetch(`http://localhost:3000/steam/recentgames?steamid=${userSteamData.steamID}`),
         fetch(
           `http://localhost:3000/steam/achievements?steamid=${userSteamData.steamID}&appid=${userSteamData.appID}`
         ),
+        fetch(
+          `http://localhost:3000/steam/gamestats?steamid=${userSteamData.steamID}&appid=${userSteamData.appID}`
+        ),
+        fetch(`http://localhost:3000/steam/ownedgames?steamid=${userSteamData.steamID}`),
       ]);
 
-      const gameStats = await gameRes.json();
+      const recentGames = await recentGamesRes.json();
       const achievements = await achRes.json();
+      const gameStats = await gameRes.json();
+      const ownedGames = await ownedRes.json();
 
-      console.log(gameStats, achievements);
-
-      localStorage.setItem('gameStats', JSON.stringify(gameStats));
+      localStorage.setItem('recentgames', JSON.stringify(recentGames));
       localStorage.setItem('achievements', JSON.stringify(achievements));
+      localStorage.setItem('gameStats', JSON.stringify(gameStats));
+      localStorage.setItem('ownedGames', JSON.stringify(ownedGames));
+      console.log(ownedGames);
 
       setIsActive((prev) => !prev);
 
@@ -50,15 +57,15 @@ export default function GameStatistics() {
   };
 
   return (
-    <div className="flex m-auto">
+    <div className="self-center m-auto">
       {load ? (
         <Loader />
       ) : (
-        <div>
+        <div className="">
           {isActive ? (
             <Dashboard />
           ) : (
-            <section className="p-10 flex flex-col items-center m-auto gap-y-10">
+            <section className="p-10 flex flex-col items-center m-auto gap-y-10 justify-center">
               <motion.div variants={container} initial="hidden" animate="visible" className="flex">
                 {"Here you can track your steam games' data".split('').map((char, index) => (
                   <motion.span key={index} variants={child} className="text-3xl">

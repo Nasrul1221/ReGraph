@@ -10,15 +10,15 @@ import { Label } from '@radix-ui/react-label';
 const obj = [
   {
     label: 'Counter Strike 2',
-    value: '730',
-  },
-  {
-    label: 'Dota 2',
-    value: '570',
+    value: 730,
   },
   {
     label: 'Geometry Dash',
-    value: '322170',
+    value: 322170,
+  },
+  {
+    label: '7 Days to die',
+    value: 251570,
   },
 ];
 
