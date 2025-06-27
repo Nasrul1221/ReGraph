@@ -117,7 +117,7 @@ export default function Dashboard() {
               <h1 className="bg-[#05C168] bg-opacity-[0.3] text-center rounded-[2px] text-[#05C168] mb-2 border border-[#05C168] border-opacity-[0.2]">
                 Total kills
               </h1>
-              <p className="text-center text-2xl">
+              <p className="text-xl">
                 {totalKills ? <CountUp start={0} end={totalKills} /> : 'N/A'}
               </p>
             </Card>
@@ -125,7 +125,7 @@ export default function Dashboard() {
               <h1 className="bg-[#FF5A65] bg-opacity-[0.3] text-center rounded-[2px] text-[#FF5A65] mb-2 border border-[#FF5A65] border-opacity-[0.2]">
                 Total deaths
               </h1>
-              <p className="text-center text-2xl">
+              <p className="text-xl">
                 {totalDeaths ? <CountUp start={0} end={totalDeaths} /> : 'N/A'}
               </p>
             </Card>
@@ -133,7 +133,7 @@ export default function Dashboard() {
               <h1 className="bg-white bg-opacity-[0.3] text-center rounded-[2px] text-white mb-2 border border-white border-opacity-[0.2]">
                 Time played
               </h1>
-              <p className="text-center text-2xl">
+              <p className="text-xl">
                 {totalTime ? (
                   <>
                     <CountUp start={0} end={totalTime} decimals={1} />
