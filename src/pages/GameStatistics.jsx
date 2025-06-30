@@ -5,10 +5,6 @@ import UserSteamGameForm from '@/features/GameStatistics/userNameForm/components
 import AnimatedButton from '@/components/AnimatedButton';
 import Loader from '@/components/ui/loader';
 
-// JOTAI
-import { useAtom } from 'jotai';
-import { userSteamDataJotai } from '@/features/GameStatistics/stores/userSteamData.jotai';
-
 // Framer motion
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -19,7 +15,6 @@ import useFetchData from '@/hooks/useFetchData';
 import { useState } from 'react';
 
 export default function GameStatistics() {
-  const [userSteamData] = useAtom(userSteamDataJotai);
   const { fetchData, load, isActive, fetchError, setFetchError } = useFetchData();
 
   const [id, setId] = useState('');
