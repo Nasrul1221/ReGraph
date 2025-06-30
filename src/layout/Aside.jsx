@@ -47,6 +47,12 @@ export default function Aside() {
       path: '/gameStatistics',
       icon: Gamepad,
     },
+    {
+      id: 'recentDashboard',
+      label: 'Recent dashboard',
+      path: '/recentDashboard',
+      icon: Gamepad,
+    },
   ];
 
   useEffect(() => {

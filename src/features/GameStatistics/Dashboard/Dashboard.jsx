@@ -1,112 +1,32 @@
+// ApexCharts
 import Chart from 'react-apexcharts';
-import * as chartTemplates from '../../../charts/templates';
 
 // Components
 import Card from '@/components/Card';
-import { options } from '@/pages/homePageData/data';
-import { useEffect, useState } from 'react';
 
-// JOTAI
-import { useAtom } from 'jotai';
-import { userSteamDataJotai } from '@/features/GameStatistics/stores/userSteamData.jotai';
+// CountUp animation
 import CountUp from 'react-countup';
 
+// Hooks
+import useGetData from './hooks/useGetData';
+
 export default function Dashboard() {
-  const recentgames = JSON.parse(localStorage.getItem('recentgames'));
-  const achievements = JSON.parse(localStorage.getItem('achievements'));
-  const gameStats = JSON.parse(localStorage.getItem('gameStats'));
-  const ownedGames = JSON.parse(localStorage.getItem('ownedGames'));
-  const user = JSON.parse(localStorage.getItem('user'));
-  console.log(gameStats);
+  const {
+    user,
+    dateCreated,
+    colChart,
+    totalKills,
+    totalDeaths,
+    totalTime,
+    pieChart,
+    isAch,
+    game,
+    online,
+    offline,
+  } = useGetData();
 
-  const [userSteamData, setUserSteamData] = useAtom(userSteamDataJotai);
+  console.log(totalDeaths, totalKills);
 
-  const [isAch, setIsAch] = useState(false);
-  const [pieChart, setPieChart] = useState(chartTemplates['pie']);
-
-  const online = (
-    <p className="bg-[#05C168] bg-opacity-[0.3] text-center rounded-[2px] text-[#05C168] mb-2 border border-[#05C168] border-opacity-[0.2]">
-      Online
-    </p>
-  );
-  const offline = (
-    <p className="bg-[#FF5A65] bg-opacity-[0.3] text-center rounded-[2px] text-[#FF5A65] mb-2 border border-[#FF5A65] border-opacity-[0.2]">
-      Offline
-    </p>
-  );
-  const dateCreated = new Date(user.response.players[0].timecreated * 1000);
-
-  let colChart = chartTemplates['column'];
-
-  const obj = {
-    kills: {
-      730: 'total_kills',
-      251570: 'ZombiesKilled',
-    },
-    deaths: {
-      730: 'total_deaths',
-      251570: 'Deaths',
-    },
-  };
-  const totalKills = gameStats?.playerstats?.stats?.find(
-    (item) => item.name === obj.kills[userSteamData.appID]
-  )?.value;
-  const totalDeaths = gameStats?.playerstats?.stats?.find(
-    (item) => item.name === obj.deaths[userSteamData.appID]
-  )?.value;
-
-  const totalTime =
-    ownedGames.response.games.find((item) => item.appid === Number(userSteamData.appID))
-      ?.playtime_forever / 60;
-
-  const game = ownedGames.response.games.find((item) => item.appid === Number(userSteamData.appID));
-
-  // Pie chart
-  useEffect(() => {
-    if (achievements.playerstats.achievements) {
-      setIsAch(true);
-      let completedAch = achievements.playerstats.achievements.filter((a) => a.achieved).length;
-
-      const totalAch = achievements.playerstats.achievements.length;
-      const uncompletedAch = totalAch - completedAch;
-
-      setPieChart((prev) => ({
-        ...prev,
-        options: {
-          ...prev.options,
-          labels: ['Completed', 'Uncompleted'],
-        },
-        series: [completedAch, uncompletedAch],
-      }));
-    }
-  }, []);
-
-  // Column chart
-  const seriesData = recentgames.response.games.map((item) =>
-    (item.playtime_forever / 60).toFixed(1)
-  );
-  const categories = recentgames.response.games.map((item) => item.name);
-
-  colChart = {
-    ...colChart,
-    options: {
-      ...colChart.options,
-      chart: {
-        ...colChart.options.chart,
-        toolbar: {
-          show: false,
-        },
-      },
-      colors: ['#CB3CFF', '#ffff'],
-      xaxis: {
-        ...colChart.options.xaxis,
-        categories: categories,
-      },
-    },
-    series: [{ data: seriesData }],
-  };
-
-  // 76561199163922222
   return (
     <div className="grid grid-cols-2 gap-4">
       <section>

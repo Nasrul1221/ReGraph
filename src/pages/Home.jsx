@@ -100,6 +100,6 @@ const buttons = [
     label: 'Track your game stats',
     buttonLabel: 'Get started',
     icon: Gamepad,
-    path: 'not-found',
+    path: 'gameStatistics',
   },
 ];

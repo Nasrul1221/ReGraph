@@ -11,12 +11,13 @@ import { userSteamDataJotai } from '@/features/GameStatistics/stores/userSteamDa
 
 // Framer motion
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+
+// Hooks
+import useFetchData from '@/hooks/useFetchData';
 
 export default function GameStatistics() {
   const [userSteamData] = useAtom(userSteamDataJotai);
-  const [isActive, setIsActive] = useState(false);
-  const [load, setLoad] = useState(false);
+  const { fetchData, load, isActive } = useFetchData();
 
   const handleClick = async () => {
     if (!userSteamData.steamID || !userSteamData.appID) {
@@ -24,38 +25,7 @@ export default function GameStatistics() {
       return;
     }
 
-    try {
-      setLoad(true);
-      const [recentGamesRes, achRes, gameRes, ownedRes, userRes] = await Promise.all([
-        fetch(`http://localhost:3000/steam/recentgames?steamid=${userSteamData.steamID}`),
-        fetch(
-          `http://localhost:3000/steam/achievements?steamid=${userSteamData.steamID}&appid=${userSteamData.appID}`
-        ),
-        fetch(
-          `http://localhost:3000/steam/gamestats?steamid=${userSteamData.steamID}&appid=${userSteamData.appID}`
-        ),
-        fetch(`http://localhost:3000/steam/ownedgames?steamid=${userSteamData.steamID}`),
-        fetch(`http://localhost:3000/steam/user?steamid=${userSteamData.steamID}`),
-      ]);
-
-      const recentGames = await recentGamesRes.json();
-      const achievements = await achRes.json();
-      const gameStats = await gameRes.json();
-      const ownedGames = await ownedRes.json();
-      const user = await userRes.json();
-
-      localStorage.setItem('recentgames', JSON.stringify(recentGames));
-      localStorage.setItem('achievements', JSON.stringify(achievements));
-      localStorage.setItem('gameStats', JSON.stringify(gameStats));
-      localStorage.setItem('ownedGames', JSON.stringify(ownedGames));
-      localStorage.setItem('user', JSON.stringify(user));
-
-      setIsActive((prev) => !prev);
-
-      setLoad(false);
-    } catch (error) {
-      console.error('Error: ' + error.message);
-    }
+    fetchData();
   };
 
   return (

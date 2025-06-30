@@ -1,6 +1,6 @@
-import { atom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
 
-export const userSteamDataJotai = atom({
+export const userSteamDataJotai = atomWithStorage('userSteamDataJotai', {
   steamID: null,
   appID: null,
 });
