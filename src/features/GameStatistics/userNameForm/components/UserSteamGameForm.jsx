@@ -26,9 +26,10 @@ const obj = [
   },
 ];
 
-export default function UserSteamGameForm() {
+export default function UserSteamGameForm({ setUserGame }) {
   const [, setUserSteamData] = useAtom(userSteamDataJotai);
   const handleChange = (value) => {
+    setUserGame(value);
     setUserSteamData((prev) => ({ ...prev, appID: value }));
   };
   return (

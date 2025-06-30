@@ -2,36 +2,21 @@
 import AnimatedButton from '@/components/AnimatedButton';
 import CardForm from '@/components/CardForm';
 import MyInput from '@/components/MyInput';
+import { Label } from '@radix-ui/react-label';
 
 // Stores && Jotai
 import { userSteamDataJotai } from '../../stores/userSteamData.jotai';
 import { useAtom } from 'jotai';
 
-// React
-import { useState } from 'react';
-import { Label } from '@radix-ui/react-label';
-
-export default function UserNameSteamIdForm() {
+export default function UserNameSteamIdForm({ setId, errors }) {
   const [, setUserSteamData] = useAtom(userSteamDataJotai);
-  const [inputValue, setInputValue] = useState('');
-  const steamIDD = '76561199401515463';
-
-  const handleClick = () => {
-    // if (inputValue.trim() === '') return;
-    // const response = await fetch(
-    //   `http://localhost:3000/steam/userstats?steamid=${inputValue}&appid=730`
-    // );
-    // const data = await response.json();
-    setUserSteamData((prev) => ({
-      ...prev,
-      steamID: inputValue,
-    }));
-    setInputValue('');
-    // console.log(data);
-  };
 
   const handleChange = (e) => {
-    setInputValue(e.target.value);
+    setId(e.target.value);
+    setUserSteamData((prev) => ({
+      ...prev,
+      steamID: e.target.value,
+    }));
   };
 
   return (
@@ -40,18 +25,17 @@ export default function UserNameSteamIdForm() {
       <div className="flex gap-x-2">
         <MyInput
           onChange={handleChange}
-          value={inputValue}
           placeholder="Enter your steam ID"
-          required
           autoComplete="on"
           type="text"
           id="steamID"
           name="steam-id"
         />
-        <AnimatedButton variant="linearGradient" onClick={handleClick} type="button">
-          Enter
-        </AnimatedButton>
       </div>
     </CardForm>
   );
 }
+
+const notValid = {
+  border: 'red',
+};

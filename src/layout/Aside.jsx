@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/sidebar';
 
 //Icons
-import { House, ChartLine, Gamepad } from 'lucide-react';
+import { House, ChartLine, Gamepad, History } from 'lucide-react';
 
 //React && State
 import { useState, useEffect } from 'react';
@@ -21,7 +21,7 @@ import { useLocation } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
 export default function Aside() {
-  const [active, setActive] = useState('');
+  const [, setActive] = useState('');
   const location = useLocation();
 
   const styleClicked =
@@ -51,7 +51,7 @@ export default function Aside() {
       id: 'recentDashboard',
       label: 'Recent dashboard',
       path: '/recentDashboard',
-      icon: Gamepad,
+      icon: History,
     },
   ];
 

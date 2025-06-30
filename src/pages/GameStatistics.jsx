@@ -10,22 +10,38 @@ import { useAtom } from 'jotai';
 import { userSteamDataJotai } from '@/features/GameStatistics/stores/userSteamData.jotai';
 
 // Framer motion
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // Hooks
 import useFetchData from '@/hooks/useFetchData';
 
+// React && State
+import { useState } from 'react';
+
 export default function GameStatistics() {
   const [userSteamData] = useAtom(userSteamDataJotai);
-  const { fetchData, load, isActive } = useFetchData();
+  const { fetchData, load, isActive, fetchError, setFetchError } = useFetchData();
+
+  const [id, setId] = useState('');
+  const [userGame, setUserGame] = useState('');
+  const [errors, setErrors] = useState({});
 
   const handleClick = async () => {
-    if (!userSteamData.steamID || !userSteamData.appID) {
-      console.log('1');
+    if (!validate()) {
       return;
     }
 
-    fetchData();
+    await fetchData();
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    if (!id.trim()) newErrors.id = 'ID!';
+    if (!userGame.trim()) newErrors.userGame = 'UserGame!';
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
   };
 
   return (
@@ -46,10 +62,40 @@ export default function GameStatistics() {
                 ))}
               </motion.div>
               <div className="flex gap-x-2">
-                <UserNameSteamIdForm />
-                <UserSteamGameForm />
+                <UserNameSteamIdForm setId={setId} errors={errors} />
+                <UserSteamGameForm setUserGame={setUserGame} />
               </div>
-              <AnimatedButton onClick={handleClick}>Click</AnimatedButton>
+              <AnimatedButton onClick={handleClick}>Find user</AnimatedButton>
+              <div className="absolute right-0 overflow-hidden">
+                <AnimatePresence>
+                  {fetchError && (
+                    <motion.div
+                      variants={fetchErrorStyle}
+                      initial="initial"
+                      animate="visible"
+                      exit="exit"
+                      style={{ backgroundColor: '	rgba(185, 39, 39, 0.4)' }}
+                      className="w-[220px] text-center p-5 rounded-l relative"
+                    >
+                      <div
+                        onClick={() => {
+                          setFetchError(false);
+                        }}
+                        className="absolute right-1 top-0 hover:text-gray-400 cursor-pointer transition-all duration-200"
+                      >
+                        &#10005;
+                      </div>
+                      <h1 className="font-bold">Error has just occured</h1>
+                      <p className="text-[14px]">Please check out your data</p>
+                      <div
+                        onClick={() => {
+                          setFetchError(false);
+                        }}
+                      ></div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </section>
           )}
         </div>
@@ -79,6 +125,27 @@ const child = {
     y: 0,
     transition: {
       duration: 0.3,
+    },
+  },
+};
+
+const fetchErrorStyle = {
+  initial: {
+    opacity: 0,
+    x: 100,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
+  exit: {
+    opacity: 0,
+    x: 100,
+    transition: {
+      duration: 0.5,
     },
   },
 };

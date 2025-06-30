@@ -4,16 +4,18 @@ import { userSteamDataJotai } from '@/features/GameStatistics/stores/userSteamDa
 
 // React && State
 import { useState } from 'react';
+import GameStatistics from '@/pages/GameStatistics';
 
 export default function useFetchData() {
   const [userSteamData] = useAtom(userSteamDataJotai);
   const [load, setLoad] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  const [fetchError, setFetchError] = useState(false);
 
   const fetchData = async () => {
     try {
       setLoad(true);
-      const [recentGamesRes, achRes, gameRes, ownedRes, userRes] = await Promise.all([
+      const responses = await Promise.all([
         fetch(`http://localhost:3000/steam/recentgames?steamid=${userSteamData.steamID}`),
         fetch(
           `http://localhost:3000/steam/achievements?steamid=${userSteamData.steamID}&appid=${userSteamData.appID}`
@@ -25,11 +27,12 @@ export default function useFetchData() {
         fetch(`http://localhost:3000/steam/user?steamid=${userSteamData.steamID}`),
       ]);
 
-      const recentGames = await recentGamesRes.json();
-      const achievements = await achRes.json();
-      const gameStats = await gameRes.json();
-      const ownedGames = await ownedRes.json();
-      const user = await userRes.json();
+      responses.forEach((response) => {
+        if (!response.ok) throw new Error('The error has occured');
+      });
+      const [recentGames, achievements, gameStats, ownedGames, user] = await Promise.all(
+        responses.map((item) => item.json())
+      );
 
       localStorage.setItem('recentgames', JSON.stringify(recentGames));
       localStorage.setItem('achievements', JSON.stringify(achievements));
@@ -41,9 +44,12 @@ export default function useFetchData() {
 
       setLoad(false);
     } catch (error) {
-      console.error('Error: ' + error.message);
+      setFetchError(true);
+      setLoad(false);
+
+      return <GameStatistics />;
     }
   };
 
-  return { fetchData, load, isActive };
+  return { fetchData, load, isActive, fetchError, setFetchError };
 }
