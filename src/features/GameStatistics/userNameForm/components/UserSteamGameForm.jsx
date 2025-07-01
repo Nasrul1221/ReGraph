@@ -24,6 +24,10 @@ const obj = [
     label: 'Terraria',
     value: '105600',
   },
+  {
+    label: 'GTA 5',
+    value: '271590',
+  },
 ];
 
 export default function UserSteamGameForm({ setUserGame }) {

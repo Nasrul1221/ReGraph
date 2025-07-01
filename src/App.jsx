@@ -1,5 +1,5 @@
 // Router
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useRoutes } from 'react-router-dom';
 
 // Layout
 import SharedLayout from './layout/SharedLayout';
@@ -12,21 +12,31 @@ import Profile from './pages/Profile';
 import CreatePage from './pages/CreatePage';
 import RecentDashboard from './pages/RecentDashboard';
 
+import React from 'react';
+
+function AppRoutes() {
+  let routes = useRoutes([
+    {
+      path: '/',
+      element: <SharedLayout />,
+      children: [
+        { index: true, element: <Home /> },
+        { path: '/charts', element: <Charts /> },
+        { path: '/profile', element: <Profile /> },
+        { path: '/create-chart', element: <CreatePage /> },
+        { path: '/gameStatistics', element: <GameStatistics /> },
+        { path: '/recentDashboard', element: <RecentDashboard /> },
+      ],
+    },
+  ]);
+
+  return routes;
+}
+
 export default function App() {
   return (
     <div className="bg-background">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<SharedLayout />}>
-            <Route index element={<Home />} />
-            <Route path="/charts" element={<Charts />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/create-chart" element={<CreatePage />} />
-            <Route path="/gameStatistics" element={<GameStatistics />} />
-            <Route path="/recentDashboard" element={<RecentDashboard />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <AppRoutes />
     </div>
   );
 }
